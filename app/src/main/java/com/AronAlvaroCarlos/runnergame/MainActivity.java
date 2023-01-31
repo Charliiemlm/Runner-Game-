@@ -3,6 +3,7 @@ package com.AronAlvaroCarlos.runnergame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
+        Button boton;
     }
 }
