@@ -37,7 +37,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/jugar"
         android:background="@drawable/play_now"
-        tools:contentDescription="@string/play"/>
+        android:text="@string/Play"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Salir"
+        android:background="@drawable/play_now"
+        android:text="@string/Play"
+        />
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
