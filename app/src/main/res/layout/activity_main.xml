@@ -17,22 +17,22 @@
         android:text="@string/tituloAplicacion"
         android:textSize="25sp" />
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/bt_jugar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Jugar"/>
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/bt_preferencias"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Preferencias"/>
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/bt_puntuaciones"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Puntuaciones"/>
     <Button
-        android:id="@+id/Button4"
+        android:id="@+id/bt_salir"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Salir"/>

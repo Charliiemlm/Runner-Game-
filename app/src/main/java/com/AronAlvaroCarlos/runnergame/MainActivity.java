@@ -14,11 +14,14 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private Button bPuntuaciones;
     private Button bPreferencias;
     private Button bJuego;
 
     private Button bSalir;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,13 @@ public class MainActivity extends AppCompatActivity {
     TextView tituloApp = (TextView) findViewById(R.id.titulo);
 		tituloApp.setTypeface(spaceFont);
 
-    bJuego = (Button)findViewById(R.id.button1);
+    bJuego= findViewById(R.id.bt_jugar);
+
+    bPreferencias= findViewById(R.id.bt_preferencias);
+
+    bPuntuaciones= findViewById(R.id.bt_puntuaciones);
+    bSalir= findViewById(R.id.bt_salir);
+
 
 		bJuego.setOnClickListener(new OnClickListener() {
 
@@ -42,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     });
 
 
-    bPuntuaciones = (Button) findViewById(R.id.button3);
 		bPuntuaciones.setOnClickListener(new OnClickListener() {
 
         @Override
@@ -52,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    bPreferencias = (Button) findViewById(R.id.button2);
 		bPreferencias.setOnClickListener(new OnClickListener() {
 
         @Override
@@ -60,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             lanzarPreferencias(null);
         }
     });
-    bSalir = (Button) findViewById(R.id.button4);
 		bPreferencias.setOnClickListener(new OnClickListener() {
 
         @Override
