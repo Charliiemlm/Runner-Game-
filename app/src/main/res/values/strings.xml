@@ -6,6 +6,6 @@
         <string name="banner_adunit_id"></string>
         <string name="interstitial_adunit_id"></string>
         <string name="Play">Play</string>
+        <string name="Salir">Play</string>
         <string name="super_santa_run">Super Santa Run</string>
     </resources>
-</resources>
