@@ -20,7 +20,7 @@ public class VistaJuego {
     private static final int PASO_GIRO_NAVE = 5;
     private static final float PASO_ACELERACION_NAVE = 0.5f;
     */
-
+    //hola
 
     public VistaJuego(Context context, AttributeSet attrs) {
 
