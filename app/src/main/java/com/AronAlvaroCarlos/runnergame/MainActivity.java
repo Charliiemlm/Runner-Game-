@@ -9,8 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,12 +23,11 @@ public class MainActivity extends AppCompatActivity {
     private Button bSalir;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-    }
     Typeface spaceFont = Typeface.createFromAsset(getAssets(),
             "spaceage.ttf");
     TextView tituloApp = (TextView) findViewById(R.id.titulo);
