@@ -19,29 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Jugar=findViewById(R.id.jugar);
-        Salir=findViewById(R.id.Salir);
-        //Implementamos el método que permite abrir la nueva actividad si se abre
-        Jugar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.class,GameActivity.class);
-                startActivity(i);
-                //Terminamos el Main Activity
-                finish();
-            }
-        });
-        //Implementamos el método que permite salirnos de la aplicacion
-        Salir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                //Nos salimos de la aplicación
-                finish();
-            }
-        });
-
-        Button boton20;
     }
 
 
