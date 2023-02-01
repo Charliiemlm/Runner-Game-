@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
     TextView tituloApp = (TextView) findViewById(R.id.titulo);
 		tituloApp.setTypeface(spaceFont);
 */
-    bJuego= findViewById(R.id.bt_jugar);
+    bJuego= (Button) findViewById(R.id.bt_jugar);
 
-    bPreferencias= findViewById(R.id.bt_preferencias);
+    bPreferencias= (Button) findViewById(R.id.bt_preferencias);
 
-    bPuntuaciones= findViewById(R.id.bt_puntuaciones);
+    bPuntuaciones=(Button) findViewById(R.id.bt_puntuaciones);
     bSalir= findViewById(R.id.bt_salir);
 
 
