@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     bSalir= findViewById(R.id.bt_salir);
 
 
-		bJuego.setOnClickListener(new OnClickListener() {
+		bJuego.setOnClickListener(new  OnClickListener() {
 
         @Override
         public void onClick(View v) {
