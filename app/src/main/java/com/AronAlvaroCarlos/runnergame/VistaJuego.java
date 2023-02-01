@@ -38,17 +38,16 @@ public class VistaJuego extends View {
        //Instanciando los cactus
         drawableCactus = context.getResources().getDrawable(
                 R.drawable.cactus);
-        Grafico cactus = new Grafico(this, drawableCactus);
+         cactus = new Grafico(this, drawableCactus);
         cactus.setIncY(Math.random() * 4 - 2);
         cactus.setIncX(Math.random() * 4 - 2);
 
         //Instanciando el avion
         drawableAvion = context.getResources().getDrawable(
                 R.drawable.avion);
-        Grafico avion = new Grafico(this, drawableAvion);
+         avion = new Grafico(this, drawableAvion);
         cactus.setIncY(Math.random() * 4 - 2);
         cactus.setIncX(Math.random() * 4 - 2);
-
 
     }
 
