@@ -4,11 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class VistaJuego {
+public class VistaJuego extends View {
 
     private Grafico personaje, cactus,avion; // Gráficos
 
