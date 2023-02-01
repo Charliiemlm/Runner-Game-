@@ -1,0 +1,9 @@
+<style name="ButtonStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:background">@drawable/button_background</item>
+    <item name="android:textColor">@color/button_text_color</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:padding">10dp</item>
+    <item name="android:elevation">5dp</item>
+    <item name="android:shadowColor">#000000</item>
+    <item name="android:shadowRadius">5</item>
+</style>

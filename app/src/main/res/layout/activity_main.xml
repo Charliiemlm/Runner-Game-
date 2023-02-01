@@ -18,21 +18,29 @@
         android:textSize="25sp" />
     <Button
         android:id="@+id/bt_jugar"
+        style="@style/ButtonStyle"
+
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Jugar"/>
     <Button
         android:id="@+id/bt_preferencias"
+        style="@style/ButtonStyle"
+
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Preferencias"/>
     <Button
         android:id="@+id/bt_puntuaciones"
+        style="@style/ButtonStyle"
+
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Puntuaciones"/>
     <Button
         android:id="@+id/bt_salir"
+        style="@style/ButtonStyle"
+
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Salir"/>
