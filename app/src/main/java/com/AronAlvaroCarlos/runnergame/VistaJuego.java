@@ -78,6 +78,10 @@ public class VistaJuego extends View {
         //posicionamos el avion en  pantalla
         avion.setPosX((ancho - avion.getAncho()) /1);
         avion.setPosY((alto - avion.getAlto()) /4);
+
+
+        ultimo_Proceso=System.currentTimeMillis();
+        thread.start();
     }
 
 
@@ -98,7 +102,8 @@ public class VistaJuego extends View {
 
         //Actualizamos velocidad y dirección de la nave a partir de
         // giroNave y aceleracionNave (según la entrada del jugador)
-        personaje.setAngulo((int) (personaje.getAngulo()+giroNave*factorMov)); double nIncX = nave.getIncX() + aceleracionNave *
+
+     /*   personaje.setAngulo((int) (personaje.getAngulo()+giroNave*factorMov)); double nIncX = nave.getIncX() + aceleracionNave *
         Math.cos (Math.toRadians (nave.getAngulo()))*factorMov;
         double nIncY= nave.getIncY() + aceleracionNave Math.sin(Math.toRadians (nave.getAngulo()))*factorMov;
         //Actualizamos si el módulo de la velocidad //no excede el máximo
@@ -106,10 +111,13 @@ public class VistaJuego extends View {
             personaje.setIncX(nIncX);
             personaje.setIncY(nIncY);
         }
-        personaje.incrementaPos (factorMov); //Actualizamos posición
+        */
+
+            personaje.incrementaPos (factorMov); //Actualizamos posición
             cactus.incrementaPos (factorMov);
 
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -119,5 +127,14 @@ public class VistaJuego extends View {
         avion.dibujaGrafico(canvas);
         cactus.dibujaGrafico(canvas);
 
+    }
+
+    public class ThreadJuego extends Thread{
+        @Override
+        public void run() {
+            while(true){
+                actualizaFisica();
+            }
+        }
     }
 }
