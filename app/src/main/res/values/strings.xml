@@ -3,7 +3,7 @@
     <string name="Puntuaciones">Puntuaciones</string>
     <string name="Salir">Salir </string>
     <string name="Jugar">Jugar</string>
-    <string name="tituloAplicacion">Asteroides</string>
-    <string name="app_name">Asteroides</string>
+    <string name="tituloAplicacion">RunnerGame</string>
+    <string name="app_name">RunnerGame</string>
     <string name="Preferencias"> Preferencias </string>
 </resources>
