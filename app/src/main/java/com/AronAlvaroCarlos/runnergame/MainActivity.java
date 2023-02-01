@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private Button bAcercaDe;
     private Button bPuntuaciones;
     private Button bPreferencias;
     private Button bJuego;
+
+    private Button bSalir;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tituloApp = (TextView) findViewById(R.id.titulo);
 		tituloApp.setTypeface(spaceFont);
 
-    bJuego = (Button) findViewById(R.id.button1);
+    bJuego = (Button)findViewById(R.id.button1);
+
 		bJuego.setOnClickListener(new OnClickListener() {
 
         @Override
@@ -40,15 +41,6 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    bAcercaDe = (Button) findViewById(R.id.button3);
-		bAcercaDe.setOnClickListener(new OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            lanzarAcercaDe(null);
-
-        }
-    });
 
     bPuntuaciones = (Button) findViewById(R.id.button4);
 		bPuntuaciones.setOnClickListener(new OnClickListener() {
@@ -66,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             lanzarPreferencias(null);
+        }
+    });
+    bSalir = (Button) findViewById(R.id.button3);
+		bPreferencias.setOnClickListener(new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            salir();
         }
     });
 }
@@ -91,10 +91,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void lanzarAcercaDe(View view) {
-        Intent i = new Intent(this, AcercaDe.class);
-        startActivity(i);
-    }
 
     public void lanzarPreferencias(View view) {
         Intent i = new Intent(this, Preferencias.class);
