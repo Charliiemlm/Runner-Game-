@@ -64,10 +64,10 @@ public class VistaJuego extends View {
         personaje.setPosY((alto - personaje.getAlto()) /1.2);
 
         //posicionamos el cactus en  pantalla
-        cactus.setPosX((ancho - cactus.getAncho()) /4);
-        cactus.setPosY((alto - cactus.getAlto()) /4);
+        cactus.setPosX((ancho - cactus.getAncho()) /1);
+        cactus.setPosY((alto - cactus.getAlto()) /1.2);
         //posicionamos el avion en  pantalla
-        avion.setPosX((ancho - avion.getAncho()) /4);
+        avion.setPosX((ancho - avion.getAncho()) /1);
         avion.setPosY((alto - avion.getAlto()) /4);
     }
 
