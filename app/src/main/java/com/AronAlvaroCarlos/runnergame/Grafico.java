@@ -19,13 +19,13 @@ public class Grafico {
 
     // Donde dibujamos el gráfico (usada en view.ivalidate)
 
-    private View view;
+    private VistaJuego view;
 
     // Para determinar el espacio a borrar (view.ivalidate)
 
     public static final int MAX_VELOCIDAD = 20;
 
-    public Grafico(View view, Drawable drawable) {
+    public Grafico(VistaJuego view, Drawable drawable) {
 
         this.view = view;
 

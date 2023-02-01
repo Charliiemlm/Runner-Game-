@@ -5,62 +5,49 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class VistaJuego {
 
-    // //// Personaje //////
+    private Grafico personaje, cactus,avion; // Gráficos
 
-    private Grafico personaje;// Gráfico de la nave
 
+    /*
     private int giroNave; // Incremento de dirección
-
     private float aceleracionNave; // aumento de velocidad
-
     // Incremento estándar de giro y aceleración
-
     private static final int PASO_GIRO_NAVE = 5;
-
     private static final float PASO_ACELERACION_NAVE = 0.5f;
-
-    // //// ASTEROIDES //////
-
-    private Vector<Grafico> obstaculos; // Vector con los Asteroides
-
-    private int numObstaculos = 5; // Número inicial de asteroides
+    */
 
 
     public VistaJuego(Context context, AttributeSet attrs) {
 
         super(context, attrs);
 
-        Drawable drawablePersonaje, drawableObstaculo, drawableMisil;
+        Drawable drawablePersonaje, drawableCactus, drawableAvion;
 
-        drawablePersonaje = context.getResources().getDrawable(R.drawable.personajeEstatico);
+
+        //Instanciando Personaje
+        drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
         personaje = new Grafico(this, drawablePersonaje);
 
 
-        //Instaciando los Asteroides
-        drawableObstaculo = context.getResources().getDrawable(
+       //Instanciando los cactus
+        drawableCactus = context.getResources().getDrawable(
                 R.drawable.cactus);
+        Grafico cactus = new Grafico(this, drawableCactus);
+        cactus.setIncY(Math.random() * 4 - 2);
+        cactus.setIncX(Math.random() * 4 - 2);
 
-        obstaculos = new Vector<Grafico>();
+        //Instanciando el avion
+        drawableAvion = context.getResources().getDrawable(
+                R.drawable.avion);
+        Grafico avion = new Grafico(this, drawableAvion);
+        cactus.setIncY(Math.random() * 4 - 2);
+        cactus.setIncX(Math.random() * 4 - 2);
 
-        for (int i = 0; i < numObstaculos; i++) {
-
-            Grafico asteroide = new Grafico(this, drawableObstaculo);
-
-            asteroide.setIncY(Math.random() * 4 - 2);
-
-            asteroide.setIncX(Math.random() * 4 - 2);
-
-            asteroide.setAngulo((int) (Math.random() * 360));
-
-            asteroide.setRotacion((int) (Math.random() * 8 - 4));
-
-            obstaculos.add(asteroide);
-
-        }
 
     }
 
@@ -70,20 +57,16 @@ public class VistaJuego {
 
         super.onSizeChanged(ancho, alto, ancho_anter, alto_anter);
 
-        // Una vez que conocemos nuestro ancho y alto.
-        //posicionamos los astroides al azar
-
-        for (Grafico obstaculo : obstaculos) {
-            do{
-                obstaculo.setPosX(Math.random() * (ancho - obstaculo.getAncho()));
-
-                obstaculo.setPosY(Math.random() * (alto - obstaculo.getAlto()));
-
-            }while(obstaculo.distancia(personaje)< (ancho+alto)/4);
-        }
         //posicionamos la nave en el centro de la pantalla
         personaje.setPosX((ancho - personaje.getAncho()) /2);
         personaje.setPosY((alto - personaje.getAlto()) /2);
+
+        //posicionamos el cactus en  pantalla
+        cactus.setPosX((ancho - cactus.getAncho()) /4);
+        cactus.setPosY((alto - cactus.getAlto()) /4);
+        //posicionamos el avion en  pantalla
+        avion.setPosX((ancho - avion.getAncho()) /4);
+        avion.setPosY((alto - avion.getAlto()) /4);
     }
 
     @Override
@@ -91,11 +74,9 @@ public class VistaJuego {
 
         super.onDraw(canvas);
 
-        for (Grafico obstaculo : obstaculos) {
-
-            obstaculo.dibujaGrafico(canvas);
-
-        }
         personaje.dibujaGrafico(canvas);
+        avion.dibujaGrafico(canvas);
+        cactus.dibujaGrafico(canvas);
+
     }
 }
