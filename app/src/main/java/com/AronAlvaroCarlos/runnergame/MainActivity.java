@@ -27,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
     Typeface spaceFont = Typeface.createFromAsset(getAssets(),
             "spaceage.ttf");
     TextView tituloApp = (TextView) findViewById(R.id.titulo);
 		tituloApp.setTypeface(spaceFont);
-
+*/
     bJuego= findViewById(R.id.bt_jugar);
 
     bPreferencias= findViewById(R.id.bt_preferencias);
