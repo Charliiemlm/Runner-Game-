@@ -42,21 +42,21 @@ public class VistaJuego extends View {
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
         personaje = new Grafico(this, drawablePersonaje);
-
+        personaje.setIncX(5);
 
        //Instanciando los cactus
         drawableCactus = context.getResources().getDrawable(
                 R.drawable.cactus);
          cactus = new Grafico(this, drawableCactus);
-        cactus.setIncY(Math.random() * 4 - 2);
-        cactus.setIncX(Math.random() * 4 - 2);
+        //cactus.setIncY(4);
+        cactus.setIncX(-4);
 
         //Instanciando el avion
         drawableAvion = context.getResources().getDrawable(
                 R.drawable.avion);
          avion = new Grafico(this, drawableAvion);
-        cactus.setIncY(Math.random() * 4 - 2);
-        cactus.setIncX(Math.random() * 4 - 2);
+            //avion.setIncY(Math.random() * 4 - 2);
+            avion.setIncX(-8);
 
     }
 
@@ -105,8 +105,8 @@ public class VistaJuego extends View {
 
      /*   personaje.setAngulo((int) (personaje.getAngulo()+giroNave*factorMov)); double nIncX = nave.getIncX() + aceleracionNave *
         Math.cos (Math.toRadians (nave.getAngulo()))*factorMov;
-        double nIncY= nave.getIncY() + aceleracionNave Math.sin(Math.toRadians (nave.getAngulo()))*factorMov;
-        //Actualizamos si el módulo de la velocidad //no excede el máximo
+        double nIncY= nave.getIncY() + aceleracionNave * Math.sin(Math.toRadians (nave.getAngulo()))*factorMov;
+        //Actualizamos si el módulo de la velocidad no excede el máximo
         if (Math.hypot (nIncX, nIncY)<=MAX_VELOCIDAD_NAVE){
             personaje.setIncX(nIncX);
             personaje.setIncY(nIncY);
@@ -115,6 +115,7 @@ public class VistaJuego extends View {
 
             personaje.incrementaPos (factorMov); //Actualizamos posición
             cactus.incrementaPos (factorMov);
+            avion.incrementaPos(factorMov);
 
     }
 
