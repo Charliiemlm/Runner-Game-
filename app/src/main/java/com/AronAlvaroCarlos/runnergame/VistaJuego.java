@@ -58,8 +58,9 @@ public class VistaJuego extends View {
         super.onSizeChanged(ancho, alto, ancho_anter, alto_anter);
 
         //posicionamos el personaje en el centro de la pantalla
+        //cuanto mayor sea más se acerca a la izquierda
         personaje.setPosX((ancho - personaje.getAncho()) /13);
-        //Cuanta más
+        //Cuanta más se acerque al 1 más se acerca abajo
         personaje.setPosY((alto - personaje.getAlto()) /1.2);
 
         //posicionamos el cactus en  pantalla
