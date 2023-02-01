@@ -58,7 +58,7 @@ public class VistaJuego extends View {
 
         super.onSizeChanged(ancho, alto, ancho_anter, alto_anter);
 
-        //posicionamos la nave en el centro de la pantalla
+        //posicionamos el personaje en el centro de la pantalla
         personaje.setPosX((ancho - personaje.getAncho()) /2);
         personaje.setPosY((alto - personaje.getAlto()) /2);
 

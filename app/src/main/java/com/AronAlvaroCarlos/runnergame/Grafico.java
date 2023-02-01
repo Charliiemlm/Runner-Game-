@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-public class Grafico {
+public class Grafico{
     private Drawable drawable; // Imagen que dibujaremos
 
     private double posX, posY; // Posición
@@ -19,42 +19,48 @@ public class Grafico {
 
     // Donde dibujamos el gráfico (usada en view.ivalidate)
 
-    private VistaJuego view;
+    private View view;
 
-    // Para determinar el espacio a borrar (view.ivalidate)
+    // Para determinar el espacio a borrar (view.ivalidate)???
 
     public static final int MAX_VELOCIDAD = 20;
 
-    public Grafico(VistaJuego view, Drawable drawable) {
+    public Grafico(View view, Drawable drawable) {
+
 
         this.view = view;
 
         this.drawable = drawable;
 
+        //Permite conseguir la anchura de la imagen mediante la clase del Drawable
         ancho = drawable.getIntrinsicWidth();
-
+        //Permite conseguir la altura de la imagen mediante la clase del Drawable
         alto = drawable.getIntrinsicHeight();
 
+        //
         radioColision = (alto + ancho) / 4;
 
     }
 
     public void dibujaGrafico(Canvas canvas) {
 
-        canvas.save();
-
+        //Posicionamiento de la imagen
         int x = (int) (posX + ancho / 2);
 
         int y = (int) (posY + alto / 2);
 
-        canvas.rotate((float) angulo, (float) x, (float) y);
-
+        //Los parámetros left y top determinan la posición
+        // del Drawable, mientras que los parámetros right
+        // y bottom determinan su tamaño.
         drawable.setBounds((int) posX, (int) posY, (int) posX + ancho,
                 (int) posY + alto);
+        //Guarda el estado actual del canvas
+        canvas.save();
 
+        canvas.rotate((float) angulo, (float) x, (float) y);
         drawable.draw(canvas);
 
-        canvas.restore();
+        canvas.restore();//??? vuelve al ultimo canvas.save()
 
         int rInval = (int) Math.hypot(ancho, alto) / 2 + MAX_VELOCIDAD;
 
