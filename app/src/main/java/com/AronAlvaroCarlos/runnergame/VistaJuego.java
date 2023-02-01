@@ -14,6 +14,16 @@ public class VistaJuego extends View {
     private Grafico personaje, cactus,avion; // Gráficos
 
 
+    ////// THREAD Y TIEMPO //////
+
+    // Thread encargado de procesar el juego
+    private ThreadJuego thread = new ThreadJuego();
+    // Cada cuanto queremos procesar cambios (ms)
+    private static int PERIODO_PROCESO = 50;
+    // Cuando se realizó el último proceso
+    private long ultimo_Proceso = 0;
+
+
     /*
     private int giroNave; // Incremento de dirección
     private float aceleracionNave; // aumento de velocidad
@@ -21,7 +31,6 @@ public class VistaJuego extends View {
     private static final int PASO_GIRO_NAVE = 5;
     private static final float PASO_ACELERACION_NAVE = 0.5f;
     */
-    //hola
 
     public VistaJuego(Context context, AttributeSet attrs) {
 
@@ -71,6 +80,36 @@ public class VistaJuego extends View {
         avion.setPosY((alto - avion.getAlto()) /4);
     }
 
+
+    protected  void actualizaFisica(){
+        long ahora=System.currentTimeMillis();
+        //salir del periodo de proceso no se ha cumplido
+        if (ultimo_Proceso+PERIODO_PROCESO>ahora){
+            return;
+        }
+
+
+        //Para una ejecucion en tiempo real
+        //calculamos el factor de movimiento
+
+        double factorMov= (ahora-ultimo_Proceso)/PERIODO_PROCESO;
+
+        ultimo_Proceso=ahora;//para la proxima vez
+
+        //Actualizamos velocidad y dirección de la nave a partir de
+        // giroNave y aceleracionNave (según la entrada del jugador)
+        personaje.setAngulo((int) (personaje.getAngulo()+giroNave*factorMov)); double nIncX = nave.getIncX() + aceleracionNave *
+        Math.cos (Math.toRadians (nave.getAngulo()))*factorMov;
+        double nIncY= nave.getIncY() + aceleracionNave Math.sin(Math.toRadians (nave.getAngulo()))*factorMov;
+        //Actualizamos si el módulo de la velocidad //no excede el máximo
+        if (Math.hypot (nIncX, nIncY)<=MAX_VELOCIDAD_NAVE){
+            personaje.setIncX(nIncX);
+            personaje.setIncY(nIncY);
+        }
+        personaje.incrementaPos (factorMov); //Actualizamos posición
+            cactus.incrementaPos (factorMov);
+
+    }
     @Override
     protected void onDraw(Canvas canvas) {
 

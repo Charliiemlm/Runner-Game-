@@ -4,7 +4,7 @@ public class ThreadJuego extends Thread{
     @Override
     public void run() {
         while(true){
-           // actualizarFisica();
+            actualizarFisica();
         }
     }
 }
