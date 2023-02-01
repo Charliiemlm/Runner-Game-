@@ -9,9 +9,9 @@ import java.util.Vector;
 
 public class VistaJuego {
 
-    // //// NAVE //////
+    // //// Personaje //////
 
-    private Grafico nave;// Gráfico de la nave
+    private Grafico personaje;// Gráfico de la nave
 
     private int giroNave; // Incremento de dirección
 
@@ -25,31 +25,30 @@ public class VistaJuego {
 
     // //// ASTEROIDES //////
 
-    private Vector<Grafico> Asteroides; // Vector con los Asteroides
+    private Vector<Grafico> obstaculos; // Vector con los Asteroides
 
-    private int numAsteroides = 5; // Número inicial de asteroides
+    private int numObstaculos = 5; // Número inicial de asteroides
 
-    private int numFragmentos = 3; // Fragmentos en que se divide
 
     public VistaJuego(Context context, AttributeSet attrs) {
 
         super(context, attrs);
 
-        Drawable drawableNave, drawableAsteroide, drawableMisil;
-        //
-        drawableNave = context.getResources().getDrawable(R.drawable.nave);
-        nave = new Grafico(this, drawableNave);
+        Drawable drawablePersonaje, drawableObstaculo, drawableMisil;
+
+        drawablePersonaje = context.getResources().getDrawable(R.drawable.personajeEstatico);
+        personaje = new Grafico(this, drawablePersonaje);
 
 
         //Instaciando los Asteroides
-        drawableAsteroide = context.getResources().getDrawable(
-                R.drawable.asteroide1);
+        drawableObstaculo = context.getResources().getDrawable(
+                R.drawable.cactus);
 
-        Asteroides = new Vector<Grafico>();
+        obstaculos = new Vector<Grafico>();
 
-        for (int i = 0; i < numAsteroides; i++) {
+        for (int i = 0; i < numObstaculos; i++) {
 
-            Grafico asteroide = new Grafico(this, drawableAsteroide);
+            Grafico asteroide = new Grafico(this, drawableObstaculo);
 
             asteroide.setIncY(Math.random() * 4 - 2);
 
@@ -59,7 +58,7 @@ public class VistaJuego {
 
             asteroide.setRotacion((int) (Math.random() * 8 - 4));
 
-            Asteroides.add(asteroide);
+            obstaculos.add(asteroide);
 
         }
 
@@ -74,17 +73,17 @@ public class VistaJuego {
         // Una vez que conocemos nuestro ancho y alto.
         //posicionamos los astroides al azar
 
-        for (Grafico asteroide : Asteroides) {
+        for (Grafico obstaculo : obstaculos) {
             do{
-                asteroide.setPosX(Math.random() * (ancho - asteroide.getAncho()));
+                obstaculo.setPosX(Math.random() * (ancho - obstaculo.getAncho()));
 
-                asteroide.setPosY(Math.random() * (alto - asteroide.getAlto()));
+                obstaculo.setPosY(Math.random() * (alto - obstaculo.getAlto()));
 
-            }while(asteroide.distancia(nave)< (ancho+alto)/4);
+            }while(obstaculo.distancia(personaje)< (ancho+alto)/4);
         }
         //posicionamos la nave en el centro de la pantalla
-        nave.setPosX((ancho - nave.getAncho()) /2);
-        nave.setPosY((alto - nave.getAlto()) /2);
+        personaje.setPosX((ancho - personaje.getAncho()) /2);
+        personaje.setPosY((alto - personaje.getAlto()) /2);
     }
 
     @Override
@@ -92,11 +91,11 @@ public class VistaJuego {
 
         super.onDraw(canvas);
 
-        for (Grafico asteroide : Asteroides) {
+        for (Grafico obstaculo : obstaculos) {
 
-            asteroide.dibujaGrafico(canvas);
+            obstaculo.dibujaGrafico(canvas);
 
         }
-        nave.dibujaGrafico(canvas);
+        personaje.dibujaGrafico(canvas);
     }
 }
