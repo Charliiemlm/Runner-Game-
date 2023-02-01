@@ -1,54 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/background"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:padding="30dp"
+    tools:context=".MainActivity" >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autoLink="web"
-        android:minHeight="32dp"
-        android:text=""
-        android:textColor="@android:color/white"
-        />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        ></View>
-
-    <ImageView
+        android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/title"
-        android:contentDescription="@string/super_santa_run"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/tituloAplicacion"
+        android:textSize="25sp" />
+    <Button
+        android:id="@+id/button1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/Jugar"/>
+    <Button
+        android:id="@+id/button2"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/Preferencias"/>
+    <Button
+        android:id="@+id/button3"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/Puntuaciones"/>
+    <Button
+        android:id="@+id/Button4"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/Salir"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/jugar"
-        android:background="@drawable/play_now"
-        android:text="@string/Play"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Salir"
-        android:background="@drawable/play_now"
-        android:text="@string/Play"
-        />
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+
+
 
 </LinearLayout>
