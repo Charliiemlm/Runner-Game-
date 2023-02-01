@@ -40,9 +40,8 @@ public class MainActivity extends AppCompatActivity {
     bSalir= findViewById(R.id.bt_salir);
 
 
-		bJuego.setOnClickListener(new  OnClickListener() {
-
-        @Override
+        bJuego.setOnClickListener(new View.OnClickListener() {
+            @Override
         public void onClick(View v) {
             lanzarJuego(null);
 
@@ -50,23 +49,23 @@ public class MainActivity extends AppCompatActivity {
     });
 
 
-		bPuntuaciones.setOnClickListener(new OnClickListener() {
+		bPuntuaciones.setOnClickListener(new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            lanzarPuntuaciones(null);
+            //lanzarPuntuaciones(null);
 
         }
     });
 
-		bPreferencias.setOnClickListener(new OnClickListener() {
+		bPreferencias.setOnClickListener(new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
             lanzarPreferencias(null);
         }
     });
-        bSalir.setOnClickListener(new OnClickListener() {
+        bSalir.setOnClickListener(new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
@@ -87,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void lanzarPreferencias(View view) {
        // Intent i = new Intent(this, Preferencias.class);
-        startActivity(i);
+       // startActivity(i);
     }
 
     public void lanzarPuntuaciones(View view) {
-        Intent i = new Intent(this, Puntuaciones.class);
-        startActivity(i);
+      //  Intent i = new Intent(this, Puntuaciones.class);
+       // startActivity(i);
     }
     public void lanzarJuego(View view) {
         Intent i = new	Intent(this, Juego.class);
