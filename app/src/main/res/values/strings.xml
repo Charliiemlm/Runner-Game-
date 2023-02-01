@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">RunnerGame</string>
-
-        <string name="tv_privacy_policy_main">Privacy Policy: htttps://bit.ly/PPSanta </string>
-        <string name="app_id"></string>
-        <string name="banner_adunit_id"></string>
-        <string name="interstitial_adunit_id"></string>
-        <string name="play">Play</string>
-        <string name="super_santa_run">Super Santa Run</string>
-    </resources>
+    <string name="Arrancar">Jugar</string>
+    <string name="Puntuaciones">Puntuaciones</string>
+    <string name="Salir">Salir </string>
+    <string name="Jugar">Jugar</string>
+    <string name="tituloAplicacion">Asteroides</string>
+    <string name="app_name">Asteroides</string>
+    <string name="Preferencias"> Preferencias </string>
+</resources>

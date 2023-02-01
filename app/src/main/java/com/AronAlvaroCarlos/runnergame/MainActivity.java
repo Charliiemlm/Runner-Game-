@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     });
 
 
-    bPuntuaciones = (Button) findViewById(R.id.button4);
+    bPuntuaciones = (Button) findViewById(R.id.button3);
 		bPuntuaciones.setOnClickListener(new OnClickListener() {
 
         @Override
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             lanzarPreferencias(null);
         }
     });
-    bSalir = (Button) findViewById(R.id.button3);
+    bSalir = (Button) findViewById(R.id.button4);
 		bPreferencias.setOnClickListener(new OnClickListener() {
 
         @Override
