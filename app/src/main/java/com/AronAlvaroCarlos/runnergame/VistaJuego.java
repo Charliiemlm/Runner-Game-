@@ -154,9 +154,10 @@ public class VistaJuego extends View {
                 //sincroniza los hilos que se hayan iniciado
                 synchronized (this) {
                     actualizaFisica();
-                    if (personaje.verificaColision(cactus)){
+
+                   /* if (personaje.verificaColision(cactus)){
                         System.out.println("matar al personaje");
-                    }
+                    }*/
                 }
             }
         }
