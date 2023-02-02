@@ -15,6 +15,9 @@ public class VistaJuego extends View {
 
     // Thread encargado de procesar el juego
     private ThreadJuego thread = new ThreadJuego();
+
+    private ThreadJuego threadCollision = new ThreadJuego();
+
     // Cada cuanto queremos procesar cambios (ms)
     private static int PERIODO_PROCESO = 50;
     // Cuando se realizó el último proceso
@@ -127,6 +130,9 @@ public class VistaJuego extends View {
             avion.incrementaPos(factorMov);
             planta.incrementaPos(factorMov);
 
+            threadCollision.start();
+
+
     }
 
     @Override
@@ -145,11 +151,13 @@ public class VistaJuego extends View {
         @Override
         public void run() {
             while(true){
-                actualizaFisica();
-                if (personaje.verificaColision(cactus)){
-                    System.out.println("matar al personaje");
+                //sincroniza los hilos que se hayan iniciado
+                synchronized (this) {
+                    actualizaFisica();
+                    if (personaje.verificaColision(cactus)){
+                        System.out.println("matar al personaje");
+                    }
                 }
-
             }
         }
     }
