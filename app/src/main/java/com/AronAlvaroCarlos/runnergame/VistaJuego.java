@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 
 public class VistaJuego extends View {
@@ -15,9 +16,6 @@ public class VistaJuego extends View {
 
     // Thread encargado de procesar el juego
     private ThreadJuego thread = new ThreadJuego();
-
-    private ThreadJuego threadCollision = new ThreadJuego();
-
     // Cada cuanto queremos procesar cambios (ms)
     private static int PERIODO_PROCESO = 50;
     // Cuando se realizó el último proceso
@@ -130,9 +128,6 @@ public class VistaJuego extends View {
             avion.incrementaPos(factorMov);
             planta.incrementaPos(factorMov);
 
-            threadCollision.start();
-
-
     }
 
     @Override
@@ -151,15 +146,46 @@ public class VistaJuego extends View {
         @Override
         public void run() {
             while(true){
-                //sincroniza los hilos que se hayan iniciado
-                synchronized (this) {
-                    actualizaFisica();
-
-                   /* if (personaje.verificaColision(cactus)){
-                        System.out.println("matar al personaje");
-                    }*/
+                actualizaFisica();
+                if (personaje.verificaColision(cactus)){
+                    System.out.println("matar al personaje");
                 }
+
             }
         }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                personaje.setPosX(personaje.getPosX() + 10);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                personaje.setPosX(personaje.getPosX() - 10);
+                break;
+            case KeyEvent.KEYCODE_SPACE:
+                personaje.setPosY(personaje.getPosY() - 50);
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
