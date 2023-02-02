@@ -6,9 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.Vector;
-
 public class VistaJuego extends View {
 
     private Grafico personaje, cactus,avion; // Gráficos
@@ -22,7 +19,6 @@ public class VistaJuego extends View {
     private static int PERIODO_PROCESO = 50;
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
-
 
     /*
     private int giroNave; // Incremento de dirección
@@ -135,6 +131,10 @@ public class VistaJuego extends View {
         public void run() {
             while(true){
                 actualizaFisica();
+                if (personaje.verificaColision(cactus)){
+                    System.out.println("matar al personaje");
+                }
+
             }
         }
     }

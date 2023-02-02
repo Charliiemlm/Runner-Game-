@@ -38,16 +38,16 @@ public class Grafico{
         alto = drawable.getIntrinsicHeight();
 
         //
-        radioColision = (alto + ancho) / 4;
+        radioColision = (alto + ancho) / 22;
 
     }
 
     public void dibujaGrafico(Canvas canvas) {
 
         //Posicionamiento de la imagen
-        int x = (int) (posX + ancho / 2);
+        int x = (int) (posX + ancho / 4);
 
-        int y = (int) (posY + alto / 2);
+        int y = (int) (posY + alto / 4);
 
         //Los parámetros left y top determinan la posición
         // del Drawable, mientras que los parámetros right
