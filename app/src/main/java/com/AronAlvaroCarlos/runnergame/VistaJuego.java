@@ -8,7 +8,7 @@ import android.view.View;
 
 public class VistaJuego extends View {
 
-    private Grafico personaje, cactus,avion; // Gráficos
+    private Grafico personaje, cactus,avion,planta; // Gráficos
 
 
     ////// THREAD Y TIEMPO //////
@@ -32,7 +32,7 @@ public class VistaJuego extends View {
 
         super(context, attrs);
 
-        Drawable drawablePersonaje, drawableCactus, drawableAvion;
+        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlant;
 
 
         //Instanciando Personaje
@@ -46,6 +46,13 @@ public class VistaJuego extends View {
          cactus = new Grafico(this, drawableCactus);
         //cactus.setIncY(4);
         cactus.setIncX(-4);
+
+        //Instanciando los planta
+        drawableCactus = context.getResources().getDrawable(
+                R.drawable.plant);
+        planta = new Grafico(this, drawableCactus);
+        //cactus.setIncY(4);
+        planta.setIncX(-4);
 
         //Instanciando el avion
         drawableAvion = context.getResources().getDrawable(
@@ -71,6 +78,12 @@ public class VistaJuego extends View {
         //posicionamos el cactus en  pantalla
         cactus.setPosX((ancho - cactus.getAncho()) /1);
         cactus.setPosY((alto - cactus.getAlto()) /1.2);
+
+        //posicionamos el cactus en  pantalla
+        planta.setPosX((ancho - planta.getAncho()) /25);
+        planta.setPosY((alto - planta.getAlto()) /1.2);
+
+
         //posicionamos el avion en  pantalla
         avion.setPosX((ancho - avion.getAncho()) /1);
         avion.setPosY((alto - avion.getAlto()) /4);
@@ -112,6 +125,7 @@ public class VistaJuego extends View {
             personaje.incrementaPos (factorMov); //Actualizamos posición
             cactus.incrementaPos (factorMov);
             avion.incrementaPos(factorMov);
+            planta.incrementaPos(factorMov);
 
     }
 
@@ -123,6 +137,7 @@ public class VistaJuego extends View {
         personaje.dibujaGrafico(canvas);
         avion.dibujaGrafico(canvas);
         cactus.dibujaGrafico(canvas);
+        planta.dibujaGrafico(canvas);
 
     }
 
