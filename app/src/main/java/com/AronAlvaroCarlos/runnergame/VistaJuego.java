@@ -32,7 +32,7 @@ public class VistaJuego extends View {
 
         super(context, attrs);
 
-        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlant;
+        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta;
 
 
         //Instanciando Personaje
@@ -48,9 +48,9 @@ public class VistaJuego extends View {
         cactus.setIncX(-4);
 
         //Instanciando los planta
-        drawableCactus = context.getResources().getDrawable(
+        drawablePlanta = context.getResources().getDrawable(
                 R.drawable.plant);
-        planta = new Grafico(this, drawableCactus);
+        planta = new Grafico(this, drawablePlanta);
         //cactus.setIncY(4);
         planta.setIncX(-4);
 
