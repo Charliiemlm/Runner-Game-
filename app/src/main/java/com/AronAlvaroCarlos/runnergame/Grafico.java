@@ -3,8 +3,9 @@ package com.AronAlvaroCarlos.runnergame;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import java.lang.Math;
 
-public class Grafico{
+public class Grafico {
     private Drawable drawable; // Imagen que dibujaremos
 
     private double posX, posY; // Posición
@@ -79,29 +80,28 @@ public class Grafico{
     }
 
     public void incrementaPos(double factor) {
-
-        posX += incX * factor;
-
+        posX += incX * factor*2;
+        int numeroAleatorio = (int) (Math.random()*1000+0);
         // Si salimos de la pantalla, corregimos posición
 
         if (posX < -ancho / 2) {
-            posX = view.getWidth() - ancho / 2;
+            posX = view.getWidth()+ numeroAleatorio;
         }
 
-
-        if (posX > view.getWidth() - ancho / 2) {
+        /*if (posX > view.getWidth() - ancho / 2) {
             posX = -ancho / 2;
-        }
+
+        }*/
 
         posY += incY * factor;
 
-        if (posY < -alto / 2) {
+        /*if (posY < -alto / 2) {
             posY = view.getHeight() - alto / 2;
         }
 
         if (posY > view.getHeight() - alto / 2) {
             posY = -alto / 2;
-        }
+        }*/
 
 
 
@@ -112,11 +112,36 @@ public class Grafico{
 
 
         if(posY<posInicial){
-            posY += 20;
+            posY += 10;
         }
 
 
     }
+    public void incrementaPosMain(double factor) {
+        //posX += incX * factor;
+        // Si salimos de la pantalla, corregimos posición
+
+        /*if(posX < -ancho / 2) {
+            posX = view.getWidth() - ancho /2;
+        }*/
+        if (posX > view.getWidth()/2) {
+            posX = view.getWidth()/2;
+
+        }
+
+        posY += incY * factor;
+
+        /*if (posY < -alto / 2) {
+            posY = view.getHeight() - alto / 2;
+        }
+
+        if (posY > view.getHeight() - alto / 2) {
+            posY = -alto / 2;
+        }*/
+
+
+    }
+
 
     public double distancia(Grafico g) {
 
