@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
+import java.util.concurrent.TimeUnit;
 
 public class VistaJuego extends View {
 
@@ -61,6 +62,7 @@ public class VistaJuego extends View {
          avion = new Grafico(this, drawableAvion);
             //avion.setIncY(Math.random() * 4 - 2);
             avion.setIncX(-8);
+
 
     }
 
@@ -136,6 +138,7 @@ public class VistaJuego extends View {
         super.onDraw(canvas);
 
         personaje.dibujaGrafico(canvas);
+        System.out.println("El Y del personaje es"+personaje.getPosY());
         avion.dibujaGrafico(canvas);
         cactus.dibujaGrafico(canvas);
         planta.dibujaGrafico(canvas);
@@ -147,31 +150,17 @@ public class VistaJuego extends View {
         public void run() {
             while(true){
                 actualizaFisica();
-                if (personaje.verificaColision(cactus)){
-                    System.out.println("matar al personaje");
-                }
+                //if (personaje.verificaColision(cactus)){
+                 //   System.out.println("matar al personaje");
+                //}
 
             }
         }
     }
 
+    public void jump(){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -183,7 +172,9 @@ public class VistaJuego extends View {
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_SPACE:
+                jump();
                 personaje.setPosY(personaje.getPosY() - 50);
+
                 break;
         }
         return super.onKeyDown(keyCode, event);
