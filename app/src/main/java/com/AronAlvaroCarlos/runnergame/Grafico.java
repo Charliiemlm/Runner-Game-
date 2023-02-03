@@ -78,6 +78,7 @@ public class Grafico{
             posX = view.getWidth() - ancho / 2;
         }
 
+
         if (posX > view.getWidth() - ancho / 2) {
             posX = -ancho / 2;
         }
