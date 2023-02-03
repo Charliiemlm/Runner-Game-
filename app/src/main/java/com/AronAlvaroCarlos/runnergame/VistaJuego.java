@@ -21,9 +21,6 @@ public class VistaJuego extends View {
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
 
-
-    private static int posIniJugador=0;
-
     /*
     private int giroNave; // Incremento de dirección
     private float aceleracionNave; // aumento de velocidad
@@ -43,7 +40,10 @@ public class VistaJuego extends View {
         personaje = new Grafico(this, drawablePersonaje);
         personaje.setIncX(5);
 
-       //Instanciando los cactus
+
+
+
+        //Instanciando los cactus
         drawableCactus = context.getResources().getDrawable(
                 R.drawable.cactus);
          cactus = new Grafico(this, drawableCactus);
@@ -77,6 +77,7 @@ public class VistaJuego extends View {
         personaje.setPosX((ancho - personaje.getAncho()) /13);
         //Cuanta más se acerque al 1 más se acerca abajo
         personaje.setPosY((alto - personaje.getAlto()) /1.2);
+        personaje.setPosInicial(personaje.getPosY());
 
         //posicionamos el cactus en  pantalla
         cactus.setPosX((ancho - cactus.getAncho()) /1);
@@ -125,10 +126,14 @@ public class VistaJuego extends View {
         }
         */
 
-            personaje.incrementaPos (factorMov); //Actualizamos posición
+           // personaje.incrementaPos (factorMov);
+           // Actualizamos posición
             cactus.incrementaPos (factorMov);
             avion.incrementaPos(factorMov);
+
             planta.incrementaPos(factorMov);
+            personaje.salto(factorMov);
+
 
     }
 
@@ -149,6 +154,7 @@ public class VistaJuego extends View {
         public void run() {
             while(true){
                 actualizaFisica();
+
                 /* if (personaje.verificaColision(cactus)){
                     System.out.println("matar al personaje");
                 }
@@ -158,19 +164,6 @@ public class VistaJuego extends View {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -184,12 +177,13 @@ public class VistaJuego extends View {
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_SPACE:
-                personaje.setPosX(personaje.getPosY() - 10);
-
-                break;
+                if(personaje.getPosY()>=personaje.getPosInicial()) {
+                    personaje.setPosY(personaje.getPosY() - 400);
+                }
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
 
 }
