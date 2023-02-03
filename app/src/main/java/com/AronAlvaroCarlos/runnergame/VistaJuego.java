@@ -22,7 +22,7 @@ public class VistaJuego extends View {
     private long ultimo_Proceso = 0;
 
 
-    private static int posIniJugador=
+    private static int posIniJugador=0;
 
     /*
     private int giroNave; // Incremento de dirección
