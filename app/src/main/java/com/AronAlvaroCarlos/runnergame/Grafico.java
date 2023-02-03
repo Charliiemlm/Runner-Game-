@@ -23,6 +23,16 @@ public class Grafico{
 
     // Para determinar el espacio a borrar (view.ivalidate)???
 
+    private double posInicial;
+
+    public double getPosInicial() {
+        return posInicial;
+    }
+
+    public void setPosInicial(double posInicial) {
+        this.posInicial = posInicial;
+    }
+
     public static final int MAX_VELOCIDAD = 20;
 
     public Grafico(View view, Drawable drawable) {
@@ -93,7 +103,18 @@ public class Grafico{
             posY = -alto / 2;
         }
 
+
+
         angulo += rotacion * factor; // Actualizamos ángulo
+
+    }
+    public void salto(double factor) {
+
+
+        if(posY<posInicial){
+            posY += 20;
+        }
+
 
     }
 
