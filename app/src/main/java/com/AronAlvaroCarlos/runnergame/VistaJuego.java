@@ -21,6 +21,9 @@ public class VistaJuego extends View {
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
 
+
+    private static int posIniJugador=
+
     /*
     private int giroNave; // Incremento de dirección
     private float aceleracionNave; // aumento de velocidad
@@ -34,7 +37,6 @@ public class VistaJuego extends View {
         super(context, attrs);
 
         Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta;
-
 
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
@@ -172,9 +174,6 @@ public class VistaJuego extends View {
 
 
 
-
-
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
@@ -185,20 +184,12 @@ public class VistaJuego extends View {
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_SPACE:
-                jump();
+                personaje.setPosX(personaje.getPosY() - 10);
 
                 break;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    public void jump(){
-            //Log.d("PLAYER", "Jump");
-            if(Math.abs(this.getBottom() - screen.height() + screen.width() / 10) < 5) this.applyForce(0, -60);
 
-    }
-    public void applyForce(double fax, double fay) {
-        this.ax = fax;
-        this.ay = fay;
-    }
 }
