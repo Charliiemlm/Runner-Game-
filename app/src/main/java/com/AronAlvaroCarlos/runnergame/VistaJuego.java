@@ -185,9 +185,20 @@ public class VistaJuego extends View {
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_SPACE:
-                personaje.setPosY(personaje.getPosY() - 50);
+                jump();
+
                 break;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void jump(){
+            //Log.d("PLAYER", "Jump");
+            if(Math.abs(this.getBottom() - screen.height() + screen.width() / 10) < 5) this.applyForce(0, -60);
+
+    }
+    public void applyForce(double fax, double fay) {
+        this.ax = fax;
+        this.ay = fay;
     }
 }
