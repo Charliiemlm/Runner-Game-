@@ -9,7 +9,7 @@ import android.view.View;
 
 public class VistaJuego extends View {
 
-    private Grafico personaje, cactus,avion,planta; // Gráficos
+    private Grafico personaje, cactus,avion,planta, planta2; // Gráficos
 
 
     ////// THREAD Y TIEMPO //////
@@ -33,14 +33,12 @@ public class VistaJuego extends View {
 
         super(context, attrs);
 
-        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta;
+        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2;
 
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
         personaje = new Grafico(this, drawablePersonaje);
         personaje.setIncX(5);
-
-
 
 
         //Instanciando los cactus
@@ -49,6 +47,8 @@ public class VistaJuego extends View {
          cactus = new Grafico(this, drawableCactus);
         //cactus.setIncY(4);
         cactus.setIncX(-4);
+        drawablePlanta2 = context.getResources().getDrawable(
+                R.drawable.plant);
 
         //Instanciando los planta
         drawablePlanta = context.getResources().getDrawable(
@@ -56,6 +56,12 @@ public class VistaJuego extends View {
         planta = new Grafico(this, drawablePlanta);
         //cactus.setIncY(4);
         planta.setIncX(-4);
+
+        drawablePlanta2 = context.getResources().getDrawable(
+                R.drawable.plant);
+        planta2 = new Grafico(this, drawablePlanta2);
+        //cactus.setIncY(4);
+        planta2.setIncX(-2);
 
         //Instanciando el avion
         drawableAvion = context.getResources().getDrawable(
@@ -83,9 +89,13 @@ public class VistaJuego extends View {
         cactus.setPosX((ancho - cactus.getAncho()) /1);
         cactus.setPosY((alto - cactus.getAlto()) /1.2);
 
+
         //posicionamos el cactus en  pantalla
-        planta.setPosX((ancho - planta.getAncho()) /25);
+        planta.setPosX((ancho - planta.getAncho()) /-1);
         planta.setPosY((alto - planta.getAlto()) /1.2);
+
+        planta2.setPosX((ancho - planta.getAncho()) /-10);
+        planta2.setPosY((alto - planta.getAlto()) /1.2);
 
 
         //posicionamos el avion en  pantalla
@@ -130,8 +140,8 @@ public class VistaJuego extends View {
            // Actualizamos posición
             cactus.incrementaPos (factorMov);
             avion.incrementaPos(factorMov);
-
             planta.incrementaPos(factorMov);
+            planta2.incrementaPos(factorMov);
             personaje.salto(factorMov);
 
 
@@ -145,6 +155,7 @@ public class VistaJuego extends View {
         personaje.dibujaGrafico(canvas);
         avion.dibujaGrafico(canvas);
         cactus.dibujaGrafico(canvas);
+        planta2.dibujaGrafico(canvas);
         planta.dibujaGrafico(canvas);
 
     }
