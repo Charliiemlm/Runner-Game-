@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements GameOverListener 
     bPuntuaciones=(Button) findViewById(R.id.bt_puntuaciones);
     bSalir= findViewById(R.id.bt_salir);
 
-VistaJuego vistaJuego = new VistaJuego(this);
+   VistaJuego vistaJuego = new VistaJuego(this);
         bJuego.setOnClickListener(new View.OnClickListener() {
             @Override
         public void onClick(View v) {

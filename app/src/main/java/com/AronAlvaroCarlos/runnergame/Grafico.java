@@ -105,7 +105,7 @@ public class Grafico {
 
 
 
-        angulo += rotacion * factor; // Actualizamos ángulo
+       angulo += rotacion * factor; // Actualizamos ángulo
 
     }
     public void incrementaPosNave(double factor) {
@@ -137,14 +137,21 @@ public class Grafico {
         angulo += rotacion * factor; // Actualizamos ángulo
 
     }
-    public void salto(double factor) {
+    public void salto() {
 
 
         if(posY<posInicial){
             posY += 20;
+            rotacion+=5;
+            angulo+=18.4;
         }
 
 
+
+    }
+    public void rotacionDisparo() {
+
+            angulo += 5;
 
     }
     public void incrementaPosMain(double factor) {

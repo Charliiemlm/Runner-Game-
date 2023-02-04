@@ -11,7 +11,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class VistaJuego extends View {
+public class VistaJuego extends View  {
 
     private GameOverListener gameOverListener;
     private Context context;
@@ -27,19 +27,15 @@ public class VistaJuego extends View {
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
 
-
-
     boolean disparoActivo=false;
 
     int puntos=0;
-
-    /*
-    private int giroNave; // Incremento de dirección
-    private float aceleracionNave; // aumento de velocidad
+    private int giroDisparo; // Incremento de dirección
+    private float aceleracionDisparo; // aumento de velocidad
     // Incremento estándar de giro y aceleración
-    private static final int PASO_GIRO_NAVE = 5;
-    private static final float PASO_ACELERACION_NAVE = 0.5f;
-    */
+    private static final int PASO_GIRO_DISPARO= 5;
+    private static final float PASO_ACELERACION_DISPARO = 0.5f;
+
     public VistaJuego(Context context, @Nullable AttributeSet attrs, GameOverListener gameOverListener) {
         super(context, attrs);
         this.gameOverListener = gameOverListener;
@@ -64,7 +60,7 @@ public class VistaJuego extends View {
         //instanciando disparo
         drawableDisparo = context.getResources().getDrawable(R.drawable.disparo);
         disparo = new Grafico(this,drawableDisparo);
-        disparo.setIncX(20);
+        disparo.setIncX(15);
 
 
 
@@ -166,15 +162,10 @@ public class VistaJuego extends View {
         //Actualizamos velocidad y dirección de la nave a partir de
         // giroNave y aceleracionNave (según la entrada del jugador)
 
-     /*   personaje.setAngulo((int) (personaje.getAngulo()+giroNave*factorMov)); double nIncX = nave.getIncX() + aceleracionNave *
-        Math.cos (Math.toRadians (nave.getAngulo()))*factorMov;
-        double nIncY= nave.getIncY() + aceleracionNave * Math.sin(Math.toRadians (nave.getAngulo()))*factorMov;
+
         //Actualizamos si el módulo de la velocidad no excede el máximo
-        if (Math.hypot (nIncX, nIncY)<=MAX_VELOCIDAD_NAVE){
-            personaje.setIncX(nIncX);
-            personaje.setIncY(nIncY);
-        }
-        */
+
+
 
            // personaje.incrementaPos (factorMov);
            // Actualizamos posición
@@ -182,11 +173,35 @@ public class VistaJuego extends View {
             avion.incrementaPosNave(factorMov);
             planta.incrementaPos(factorMov);
             planta2.incrementaPos(factorMov);
-            personaje.salto(factorMov);
+            personaje.salto();
 
 
             if (disparoActivo){
                 disparo.incrementaPos(factorMov);
+                disparo.rotacionDisparo();
+
+            }
+
+            if(disparo.verificaColision(cactus) ){
+                cactus.setPosX(cactus.getPosX()+1000);
+                disparoActivo=false;
+                disparo.setPosX(personaje.getPosX());
+
+             }else if(disparo.verificaColision(avion)){
+                avion.setPosX(avion.getPosX()+1000);
+                disparoActivo=false;
+                disparo.setPosX(personaje.getPosX());
+
+            }
+            else if(disparo.verificaColision(planta)){
+                planta.setPosX(planta.getPosX()+1000);
+                disparoActivo=false;
+                disparo.setPosX(personaje.getPosX());
+
+            }else if(disparo.verificaColision(planta2)){
+                planta2.setPosX(planta2.getPosX()+1000);
+                disparoActivo=false;
+                disparo.setPosX(personaje.getPosX());
 
             }
 
@@ -194,8 +209,8 @@ public class VistaJuego extends View {
     }
 
     public void activaDisparo(){
-        disparo.setPosX(personaje.getPosX());
-        disparo.setPosY(personaje.getPosY());
+        disparo.setPosX(personaje.getPosX()-30);
+        disparo.setPosY(personaje.getPosY()-20);
         disparoActivo=true;
     }
 
@@ -210,7 +225,7 @@ public class VistaJuego extends View {
         planta2.dibujaGrafico(canvas);
         planta.dibujaGrafico(canvas);
 
-
+        planta.dibujaGrafico(canvas);
 
         if(disparoActivo){
             disparo.dibujaGrafico(canvas);
@@ -231,6 +246,9 @@ public class VistaJuego extends View {
                      gameOverListener.onGameOver(puntos);
                      break;
                 }
+
+
+
 
 
             }
