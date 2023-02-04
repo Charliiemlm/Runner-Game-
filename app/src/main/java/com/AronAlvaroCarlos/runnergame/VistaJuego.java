@@ -266,12 +266,15 @@ public class VistaJuego extends View  {
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_D:
-                activaDisparo();
+
+                if(disparoActivo==false){
+                    activaDisparo();
+
+                }
                 break;
             case KeyEvent.KEYCODE_SPACE:
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
                     personaje.setPosY(personaje.getPosY() - 400);
-
 
                 }
 
