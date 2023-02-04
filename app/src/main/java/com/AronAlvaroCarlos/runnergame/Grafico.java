@@ -80,8 +80,37 @@ public class Grafico {
     }
 
     public void incrementaPos(double factor) {
-        posX += incX * factor*2;
+        posX += incX * factor*5;
         int numeroAleatorio = (int) (Math.random()*1000+0);
+        // Si salimos de la pantalla, corregimos posición
+
+        if (posX < -ancho / 2) {
+            posX = view.getWidth()+ numeroAleatorio;
+        }
+
+        /*if (posX > view.getWidth() - ancho / 2) {
+            posX = -ancho / 2;
+
+        }*/
+
+        posY += incY * factor;
+
+        /*if (posY < -alto / 2) {
+            posY = view.getHeight() - alto / 2;
+        }
+
+        if (posY > view.getHeight() - alto / 2) {
+            posY = -alto / 2;
+        }*/
+
+
+
+        angulo += rotacion * factor; // Actualizamos ángulo
+
+    }
+    public void incrementaPosNave(double factor) {
+        posX += incX * factor*2;
+        int numeroAleatorio = (int) (Math.random()*5000+0);
         // Si salimos de la pantalla, corregimos posición
 
         if (posX < -ancho / 2) {
@@ -112,8 +141,9 @@ public class Grafico {
 
 
         if(posY<posInicial){
-            posY += 10;
+            posY += 20;
         }
+
 
 
     }
