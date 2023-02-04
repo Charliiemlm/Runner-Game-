@@ -9,7 +9,7 @@ import android.view.View;
 
 public class VistaJuego extends View {
 
-    private Grafico personaje, cactus,avion,planta, planta2; // Gráficos
+    private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
 
     ////// THREAD Y TIEMPO //////
 
@@ -19,6 +19,12 @@ public class VistaJuego extends View {
     private static int PERIODO_PROCESO = 50;
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
+
+
+
+    boolean disparoActivo=false;
+
+
 
     /*
     private int giroNave; // Incremento de dirección
@@ -32,7 +38,8 @@ public class VistaJuego extends View {
 
         super(context, attrs);
 
-        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2;
+        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
+
 
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
@@ -41,12 +48,20 @@ public class VistaJuego extends View {
         personaje.setIncX(5);
 
 
+        //instanciando disparo
+        drawableDisparo = context.getResources().getDrawable(R.drawable.disparo);
+        disparo = new Grafico(this,drawableDisparo);
+        disparo.setIncX(20);
+
+
+
         //Instanciando los cactus
         drawableCactus = context.getResources().getDrawable(
                 R.drawable.cactus);
          cactus = new Grafico(this, drawableCactus);
         //cactus.setIncY(4);
         cactus.setIncX(-4);
+
         drawablePlanta2 = context.getResources().getDrawable(
                 R.drawable.plant);
 
@@ -62,6 +77,9 @@ public class VistaJuego extends View {
         planta2 = new Grafico(this, drawablePlanta2);
         //cactus.setIncY(4);
         planta2.setIncX(-4);
+
+
+
 
         //Instanciando el avion
         drawableAvion = context.getResources().getDrawable(
@@ -85,6 +103,8 @@ public class VistaJuego extends View {
         personaje.setPosY((alto - personaje.getAlto()) /1.2);
         personaje.setPosInicial(personaje.getPosY());
 
+
+
         //posicionamos el cactus en  pantalla
         cactus.setPosX((ancho - cactus.getAncho()) /1);
         cactus.setPosY((alto - cactus.getAlto()) /1.2);
@@ -101,6 +121,8 @@ public class VistaJuego extends View {
         //posicionamos el avion en  pantalla
         avion.setPosX((ancho - avion.getAncho()) /-5);
         avion.setPosY((alto - avion.getAlto()) /4);
+
+
 
 
         ultimo_Proceso=System.currentTimeMillis();
@@ -145,6 +167,18 @@ public class VistaJuego extends View {
             personaje.salto(factorMov);
 
 
+            if (disparoActivo){
+                disparo.incrementaPos(factorMov);
+
+            }
+
+
+    }
+
+    public void activaDisparo(){
+        disparo.setPosX(personaje.getPosX());
+        disparo.setPosY(personaje.getPosY());
+        disparoActivo=true;
     }
 
     @Override
@@ -158,6 +192,14 @@ public class VistaJuego extends View {
         planta2.dibujaGrafico(canvas);
         planta.dibujaGrafico(canvas);
 
+
+
+        if(disparoActivo){
+            disparo.dibujaGrafico(canvas);
+
+        }
+
+
     }
 
     public class ThreadJuego extends Thread{
@@ -166,15 +208,14 @@ public class VistaJuego extends View {
             while(true){
                 actualizaFisica();
 
-                 if (personaje.verificaColision(cactus)){
+                /* if (personaje.verificaColision(cactus)){
                     System.out.println("matar al personaje");
                 }
-
+                */
 
             }
         }
     }
-
 
 
     @Override
@@ -186,14 +227,20 @@ public class VistaJuego extends View {
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
+            case KeyEvent.KEYCODE_D:
+                activaDisparo();
+                break;
             case KeyEvent.KEYCODE_SPACE:
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
                     personaje.setPosY(personaje.getPosY() - 400);
+
+
                 }
+
+                break;
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
 }
