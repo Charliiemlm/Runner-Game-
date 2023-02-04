@@ -2,62 +2,36 @@ package com.AronAlvaroCarlos.runnergame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import android.content.Intent;
 
 public class GameOver extends AppCompatActivity {
 
-    TextView tvScore, tvPersonalBest;
-    private AdView mAdView;
+    TextView tvPoints;
+    ImageView ivNewHighest;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    private Context context;
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
-        mAdView = findViewById(R.id.adViewGameOver);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        InterstitialAd.load(this, getResources().getString(R.string.interstitial_adunit_id), adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The interstitialAd reference will be null until
-                        // an ad is loaded.
-                        interstitialAd.show(GameOver.this);
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        // Log.i(TAG, loadAdError.getMessage());
-                    }
-                });
+        ivNewHighest = findViewById(R.id.ivNewHeighest);
+        tvPoints = findViewById(R.id.tvPoints);
         int points = getIntent().getExtras().getInt("points");
-        SharedPreferences pref = getSharedPreferences("MyPref", 0);
-        int pointsSP = pref.getInt("pointsSP", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        if (points > pointsSP) {
-            pointsSP = points;
-            editor.putInt("pointsSP", pointsSP);
-            editor.commit();
+
+        if (points == 240) {
+            ivNewHighest.setVisibility(View.VISIBLE);
         }
-        tvScore = findViewById(R.id.tvPoints);
-        tvPersonalBest = findViewById(R.id.tvPersonalBest);
-        tvScore.setText("" + points);
-        tvPersonalBest.setText("" + pointsSP);
+        tvPoints.setText("" + points);
     }
 
     public void restart(View view) {
@@ -66,7 +40,10 @@ public class GameOver extends AppCompatActivity {
         finish();
     }
 
+
+    int points = getIntent().getExtras().getInt("points");
     public void exit(View view) {
         finish();
     }
 }
+

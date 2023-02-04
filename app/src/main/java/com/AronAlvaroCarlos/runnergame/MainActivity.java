@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GameOverListener {
 
 
     private Button bPuntuaciones;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     bPuntuaciones=(Button) findViewById(R.id.bt_puntuaciones);
     bSalir= findViewById(R.id.bt_salir);
 
-
+VistaJuego vistaJuego = new VistaJuego(this);
         bJuego.setOnClickListener(new View.OnClickListener() {
             @Override
         public void onClick(View v) {
@@ -103,4 +103,12 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
+
+    @Override
+    public void onGameOver(int points) {
+        Intent intent = new Intent(MainActivity.this, GameOver.class);
+        intent.putExtra("points", points);
+        startActivity(intent);
+        finish();
+    }
 }

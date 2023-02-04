@@ -1,13 +1,20 @@
 package com.AronAlvaroCarlos.runnergame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class VistaJuego extends View {
+
+    private GameOverListener gameOverListener;
+    private Context context;
 
     private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
 
@@ -24,7 +31,7 @@ public class VistaJuego extends View {
 
     boolean disparoActivo=false;
 
-
+    int puntos=0;
 
     /*
     private int giroNave; // Incremento de dirección
@@ -33,6 +40,12 @@ public class VistaJuego extends View {
     private static final int PASO_GIRO_NAVE = 5;
     private static final float PASO_ACELERACION_NAVE = 0.5f;
     */
+    public VistaJuego(Context context, @Nullable AttributeSet attrs, GameOverListener gameOverListener) {
+        super(context, attrs);
+        this.gameOverListener = gameOverListener;
+
+    }
+
 
     public VistaJuego(Context context, AttributeSet attrs) {
 
@@ -88,6 +101,11 @@ public class VistaJuego extends View {
             //avion.setIncY(Math.random() * 4 - 2);
             avion.setIncX(-6);
 
+    }
+
+    public VistaJuego(Context context) {
+        super(context);
+        this.context=context;
     }
 
     @Override
@@ -208,10 +226,12 @@ public class VistaJuego extends View {
             while(true){
                 actualizaFisica();
 
-                /* if (personaje.verificaColision(cactus)){
-                    System.out.println("matar al personaje");
+                 if (personaje.verificaColision(cactus)){
+                     if (gameOverListener != null)
+                     gameOverListener.onGameOver(puntos);
+                     break;
                 }
-                */
+
 
             }
         }
@@ -241,6 +261,23 @@ public class VistaJuego extends View {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
