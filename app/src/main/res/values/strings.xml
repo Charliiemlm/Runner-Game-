@@ -6,4 +6,5 @@
     <string name="tituloAplicacion">RunnerGame</string>
     <string name="app_name">RunnerGame</string>
     <string name="Preferencias"> Preferencias </string>
+    <string name="puntuacion"> pts </string>
 </resources>

@@ -13,4 +13,10 @@
         android:focusable="true"
         android:background="@drawable/fondo"
         />
+
+    <TextView
+        android:id="@+id/tvPuntuacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Puntuaciones" />
 </androidx.appcompat.widget.LinearLayoutCompat>
