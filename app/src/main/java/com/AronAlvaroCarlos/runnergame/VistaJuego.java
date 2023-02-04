@@ -11,7 +11,6 @@ public class VistaJuego extends View {
 
     private Grafico personaje, cactus,avion,planta, planta2; // Gráficos
 
-
     ////// THREAD Y TIEMPO //////
 
     // Thread encargado de procesar el juego
@@ -38,6 +37,7 @@ public class VistaJuego extends View {
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
         personaje = new Grafico(this, drawablePersonaje);
+
         personaje.setIncX(5);
 
 
@@ -61,14 +61,14 @@ public class VistaJuego extends View {
                 R.drawable.plant);
         planta2 = new Grafico(this, drawablePlanta2);
         //cactus.setIncY(4);
-        planta2.setIncX(-2);
+        planta2.setIncX(-4);
 
         //Instanciando el avion
         drawableAvion = context.getResources().getDrawable(
                 R.drawable.avion);
          avion = new Grafico(this, drawableAvion);
             //avion.setIncY(Math.random() * 4 - 2);
-            avion.setIncX(-8);
+            avion.setIncX(-6);
 
     }
 
@@ -99,7 +99,7 @@ public class VistaJuego extends View {
 
 
         //posicionamos el avion en  pantalla
-        avion.setPosX((ancho - avion.getAncho()) /1);
+        avion.setPosX((ancho - avion.getAncho()) /-5);
         avion.setPosY((alto - avion.getAlto()) /4);
 
 
@@ -139,7 +139,7 @@ public class VistaJuego extends View {
            // personaje.incrementaPos (factorMov);
            // Actualizamos posición
             cactus.incrementaPos (factorMov);
-            avion.incrementaPos(factorMov);
+            avion.incrementaPosNave(factorMov);
             planta.incrementaPos(factorMov);
             planta2.incrementaPos(factorMov);
             personaje.salto(factorMov);
@@ -166,10 +166,9 @@ public class VistaJuego extends View {
             while(true){
                 actualizaFisica();
 
-                /* if (personaje.verificaColision(cactus)){
+                 if (personaje.verificaColision(cactus)){
                     System.out.println("matar al personaje");
                 }
-                */
 
 
             }

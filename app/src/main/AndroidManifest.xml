@@ -17,14 +17,12 @@
         <activity
             android:name=".Juego"
             android:exported="false"
-            android:screenOrientation="landscape"
-            />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
