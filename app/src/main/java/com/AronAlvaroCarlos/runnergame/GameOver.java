@@ -24,14 +24,14 @@ public class GameOver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
-        ivNewHighest = findViewById(R.id.ivNewHeighest);
-        tvPoints = findViewById(R.id.tvPoints);
+        //ivNewHighest = findViewById(R.id.ivNewHeighest);
         int points = getIntent().getExtras().getInt("points");
-
-        if (points == 240) {
-            ivNewHighest.setVisibility(View.VISIBLE);
-        }
+        tvPoints = findViewById(R.id.tvPoints);
         tvPoints.setText("" + points);
+
+        /* if (points == 240) {
+            ivNewHighest.setVisibility(View.VISIBLE);
+        }*/
     }
 
     public void restart(View view) {
@@ -41,7 +41,6 @@ public class GameOver extends AppCompatActivity {
     }
 
 
-    int points = getIntent().getExtras().getInt("points");
     public void exit(View view) {
         finish();
     }

@@ -1,5 +1,6 @@
 package com.AronAlvaroCarlos.runnergame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -13,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class VistaJuego extends View {
 
-    private GameOverListener gameOverListener;
     private Context context;
 
     private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
@@ -40,16 +40,13 @@ public class VistaJuego extends View {
     private static final int PASO_GIRO_NAVE = 5;
     private static final float PASO_ACELERACION_NAVE = 0.5f;
     */
-    public VistaJuego(Context context, @Nullable AttributeSet attrs, GameOverListener gameOverListener) {
-        super(context, attrs);
-        this.gameOverListener = gameOverListener;
-
-    }
 
 
     public VistaJuego(Context context, AttributeSet attrs) {
 
         super(context, attrs);
+
+        this.context=context;
 
         Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
 
@@ -103,10 +100,7 @@ public class VistaJuego extends View {
 
     }
 
-    public VistaJuego(Context context) {
-        super(context);
-        this.context=context;
-    }
+
 
     @Override
     protected void onSizeChanged(int ancho, int alto, int ancho_anter,
@@ -221,16 +215,20 @@ public class VistaJuego extends View {
     }
 
     public class ThreadJuego extends Thread{
+
+
         @Override
         public void run() {
             while(true){
                 actualizaFisica();
 
                  if (personaje.verificaColision(cactus)){
-                     if (gameOverListener != null)
-                     gameOverListener.onGameOver(puntos);
-                     break;
-                }
+                     personaje=null;
+                     Intent intent = new Intent(context, GameOver.class);
+                     int points=0;
+                     intent.putExtra("points", points);
+                     context.startActivity(intent);
+                     ((Activity)context).finish();                }
 
 
             }
