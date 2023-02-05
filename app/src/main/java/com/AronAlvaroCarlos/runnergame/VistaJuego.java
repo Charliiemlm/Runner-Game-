@@ -24,7 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java.net.ConnectException;
 
-public class VistaJuego extends View {
+public class VistaJuego extends View implements View.OnTouchListener{
     private int player1Score = 0;
 
     private Context context;
@@ -57,7 +57,7 @@ public class VistaJuego extends View {
         super(context, attrs);
 
         this.context=context;
-
+        setOnTouchListener(this);
         Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
 
 
@@ -293,6 +293,8 @@ public class VistaJuego extends View {
 
     }
 
+
+
     public class ThreadJuego extends Thread{
 
 
@@ -339,7 +341,28 @@ public class VistaJuego extends View {
         return super.onKeyDown(keyCode, event);
     }
 
-
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (motionEvent.getX() > view.getWidth() / 2) {
+                    personaje.setPosX(personaje.getPosX() + 10);
+                } else {
+                    personaje.setPosX(personaje.getPosX() - 10);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if (motionEvent.getY() < view.getHeight() / 2) {
+                    if (personaje.getPosY() >= personaje.getPosInicial()) {
+                        personaje.setPosY(personaje.getPosY() - 400);
+                    }
+                } else {
+                    activaDisparo();
+                }
+                break;
+        }
+        return true;
+    }
 
 
 
