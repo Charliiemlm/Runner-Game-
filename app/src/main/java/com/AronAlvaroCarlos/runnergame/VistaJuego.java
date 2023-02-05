@@ -2,8 +2,15 @@ package com.AronAlvaroCarlos.runnergame;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,8 +18,10 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class VistaJuego extends View  {
+import java.net.ConnectException;
 
+public class VistaJuego extends View  {
+    private int player1Score = 0;
     private GameOverListener gameOverListener;
     private Context context;
 
@@ -41,6 +50,7 @@ public class VistaJuego extends View  {
         this.gameOverListener = gameOverListener;
 
     }
+
 
 
     public VistaJuego(Context context, AttributeSet attrs) {
@@ -97,6 +107,7 @@ public class VistaJuego extends View  {
             //avion.setIncY(Math.random() * 4 - 2);
             avion.setIncX(-6);
 
+
     }
 
     public VistaJuego(Context context) {
@@ -144,7 +155,7 @@ public class VistaJuego extends View  {
     }
 
 
-    protected  void actualizaFisica(){
+    protected void actualizaFisica(){
         long ahora=System.currentTimeMillis();
         //salir del periodo de proceso no se ha cumplido
         if (ultimo_Proceso+PERIODO_PROCESO>ahora){
@@ -181,7 +192,7 @@ public class VistaJuego extends View  {
                 disparo.rotacionDisparo();
 
             }
-
+            player1Score ++;
             if(disparo.verificaColision(cactus) ){
                 cactus.setPosX(cactus.getPosX()+1000);
                 disparoActivo=false;
@@ -213,7 +224,53 @@ public class VistaJuego extends View  {
         disparo.setPosY(personaje.getPosY()-20);
         disparoActivo=true;
     }
+   /* private void drawScoresOnCanvas(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setTextSize(40);
+        paint.setColor(Color.WHITE);
+        paint.setTextAlign(Paint.Align.CENTER);
 
+        // Esto es pa dibujar al la tabla
+        float x1 = canvas.getWidth() / 4;
+        float y1 = canvas.getHeight()/6;
+        canvas.drawText(player1Score, x1, y1, paint);
+        Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
+        float logoX = canvas.getWidth() / 6 - logo.getWidth() / 2;
+        float logoY = 0;
+        canvas.drawBitmap(logo, logoX, logoY, null);
+    }*/
+   private void drawScoresOnCanvas(Canvas canvas) {
+       Paint paint = new Paint();
+       paint.setTextSize(40);
+       paint.setColor(Color.WHITE);
+       paint.setTextAlign(Paint.Align.CENTER);
+       paint.setStyle(Paint.Style.STROKE);
+       paint.setStrokeWidth(3);
+       // Rectangulo con border rojo
+       paint.setColor(Color.rgb(255, 0, 0));
+       canvas.drawRect(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 60,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 60, paint);
+
+       // Hay que dar más detalles aquí, color naranja
+       paint.setColor(Color.rgb(255, 165, 0));
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);
+
+       paint.setStyle(Paint.Style.FILL);
+       paint.setColor(Color.WHITE);
+
+       // Player 1 score
+       float x1 = canvas.getWidth() / 4;
+       float y1 = canvas.getHeight()/6;
+       canvas.drawText(String.valueOf(player1Score), x1, y1, paint);
+       // Draw the "Danny" logo
+       Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
+       float logoX = canvas.getWidth() / 6 - logo.getWidth() / 2;
+       float logoY = 0;
+       canvas.drawBitmap(logo, logoX, logoY, null);
+   }
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -224,13 +281,13 @@ public class VistaJuego extends View  {
         cactus.dibujaGrafico(canvas);
         planta2.dibujaGrafico(canvas);
         planta.dibujaGrafico(canvas);
-
         planta.dibujaGrafico(canvas);
 
         if(disparoActivo){
             disparo.dibujaGrafico(canvas);
 
         }
+        drawScoresOnCanvas(canvas);
 
 
     }
@@ -240,12 +297,13 @@ public class VistaJuego extends View  {
         public void run() {
             while(true){
                 actualizaFisica();
-
+                // Utilice un manejador para llamar a updatePoints cada milisegundo
                  if (personaje.verificaColision(cactus)){
                      if (gameOverListener != null)
                      gameOverListener.onGameOver(puntos);
                      break;
                 }
+
 
 
 
