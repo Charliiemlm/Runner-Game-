@@ -39,20 +39,13 @@ public class VistaJuego extends View  {
     boolean disparoActivo=false;
 
     int puntos=0;
-    private int giroDisparo; // Incremento de dirección
-    private float aceleracionDisparo; // aumento de velocidad
-    // Incremento estándar de giro y aceleración
-    private static final int PASO_GIRO_DISPARO= 5;
-    private static final float PASO_ACELERACION_DISPARO = 0.5f;
+
 
     public VistaJuego(Context context, @Nullable AttributeSet attrs, GameOverListener gameOverListener) {
         super(context, attrs);
         this.gameOverListener = gameOverListener;
 
     }
-
-
-
     public VistaJuego(Context context, AttributeSet attrs) {
 
         super(context, attrs);
