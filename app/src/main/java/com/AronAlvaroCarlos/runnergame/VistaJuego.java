@@ -303,7 +303,7 @@ public class VistaJuego extends View implements View.OnTouchListener{
             while(true){
                 actualizaFisica();
 
-                if (personaje.verificaColision(cactus)){
+                if (personaje.verificaColision(cactus) || personaje.verificaColision(avion) || personaje.verificaColision(planta) || personaje.verificaColision(planta2)){
                     personaje=null;
                     Intent intent = new Intent(context, GameOver.class);
                     int points=0;
@@ -356,7 +356,7 @@ public class VistaJuego extends View implements View.OnTouchListener{
                     if (personaje.getPosY() >= personaje.getPosInicial()) {
                         personaje.setPosY(personaje.getPosY() - 400);
                     }
-                } else {
+                } else if (motionEvent.getX() > view.getWidth() / 2) {
                     activaDisparo();
                 }
                 break;
