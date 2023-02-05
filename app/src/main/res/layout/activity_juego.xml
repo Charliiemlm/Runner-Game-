@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
     <com.AronAlvaroCarlos.runnergame.VistaJuego
 
         android:id="@+id/VistaJuego"
@@ -13,10 +14,12 @@
         android:focusable="true"
         android:background="@drawable/fondo"
         />
-
     <TextView
         android:id="@+id/tvPuntuacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Puntuaciones" />
+
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>

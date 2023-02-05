@@ -52,7 +52,12 @@ public class Grafico {
         radioColision = (alto + ancho) / 22;
 
     }
+    public Grafico(){
 
+    }
+    public void dibujaPuntos(Canvas canvas){
+
+    }
     public void dibujaGrafico(Canvas canvas) {
 
         //Posicionamiento de la imagen
