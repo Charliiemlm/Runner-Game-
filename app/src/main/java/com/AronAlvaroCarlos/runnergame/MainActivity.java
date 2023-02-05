@@ -2,11 +2,13 @@ package com.AronAlvaroCarlos.runnergame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +18,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity  {
 
 
+
+
+
     private Button bPuntuaciones;
     private Button bPreferencias;
     private Button bJuego;
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity  {
     private Button bSalir;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,10 @@ public class MainActivity extends AppCompatActivity  {
 
     bPuntuaciones=(Button) findViewById(R.id.bt_puntuaciones);
     bSalir= findViewById(R.id.bt_salir);
+
+
+
+
 
         bJuego.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +111,8 @@ public class MainActivity extends AppCompatActivity  {
     public void salir() {
         this.finish();
     }
+
+
 
 
 

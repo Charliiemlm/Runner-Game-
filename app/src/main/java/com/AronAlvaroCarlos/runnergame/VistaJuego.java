@@ -1,28 +1,32 @@
 package com.AronAlvaroCarlos.runnergame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.net.ConnectException;
 
-public class VistaJuego extends View  {
+public class VistaJuego extends View {
     private int player1Score = 0;
-    private GameOverListener gameOverListener;
+
     private Context context;
 
     private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
@@ -36,20 +40,23 @@ public class VistaJuego extends View  {
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
 
+
+
     boolean disparoActivo=false;
 
-    //puntos del jugador
     int puntos=0;
+    private int giroDisparo; // Incremento de dirección
+    private float aceleracionDisparo; // aumento de velocidad
+    // Incremento estándar de giro y aceleración
+    private static final int PASO_GIRO_DISPARO= 5;
+    private static final float PASO_ACELERACION_DISPARO = 0.5f;
 
 
-    public VistaJuego(Context context, @Nullable AttributeSet attrs, GameOverListener gameOverListener) {
-        super(context, attrs);
-        this.gameOverListener = gameOverListener;
-
-    }
     public VistaJuego(Context context, AttributeSet attrs) {
 
         super(context, attrs);
+
+        this.context=context;
 
         Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
 
@@ -71,7 +78,7 @@ public class VistaJuego extends View  {
         //Instanciando los cactus
         drawableCactus = context.getResources().getDrawable(
                 R.drawable.cactus);
-         cactus = new Grafico(this, drawableCactus);
+        cactus = new Grafico(this, drawableCactus);
         //cactus.setIncY(4);
         cactus.setIncX(-4);
 
@@ -97,9 +104,9 @@ public class VistaJuego extends View  {
         //Instanciando el avion
         drawableAvion = context.getResources().getDrawable(
                 R.drawable.avion);
-         avion = new Grafico(this, drawableAvion);
-            //avion.setIncY(Math.random() * 4 - 2);
-            avion.setIncX(-6);
+        avion = new Grafico(this, drawableAvion);
+        //avion.setIncY(Math.random() * 4 - 2);
+        avion.setIncX(-6);
 
 
     }
@@ -172,43 +179,43 @@ public class VistaJuego extends View  {
 
 
 
-           // personaje.incrementaPos (factorMov);
-           // Actualizamos posición
-            cactus.incrementaPos (factorMov);
-            avion.incrementaPosNave(factorMov);
-            planta.incrementaPos(factorMov);
-            planta2.incrementaPos(factorMov);
-            personaje.salto();
+        // personaje.incrementaPos (factorMov);
+        // Actualizamos posición
+        cactus.incrementaPos (factorMov);
+        avion.incrementaPosNave(factorMov);
+        planta.incrementaPos(factorMov);
+        planta2.incrementaPos(factorMov);
+        personaje.salto();
 
 
-            if (disparoActivo){
-                disparo.incrementaPos(factorMov);
-                disparo.rotacionDisparo();
+        if (disparoActivo){
+            disparo.incrementaPos(factorMov);
+            disparo.rotacionDisparo();
 
-            }
-            player1Score ++;
-            if(disparo.verificaColision(cactus) ){
-                cactus.setPosX(cactus.getPosX()+1000);
-                disparoActivo=false;
-                disparo.setPosX(personaje.getPosX());
+        }
+        player1Score ++;
+        if(disparo.verificaColision(cactus) ){
+            cactus.setPosX(cactus.getPosX()+1000);
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX());
 
-             }else if(disparo.verificaColision(avion)){
-                avion.setPosX(avion.getPosX()+1000);
-                disparoActivo=false;
-                disparo.setPosX(personaje.getPosX());
+        }else if(disparo.verificaColision(avion)){
+            avion.setPosX(avion.getPosX()+1000);
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX());
 
-            }
-            else if(disparo.verificaColision(planta)){
-                planta.setPosX(planta.getPosX()+1000);
-                disparoActivo=false;
-                disparo.setPosX(personaje.getPosX());
+        }
+        else if(disparo.verificaColision(planta)){
+            planta.setPosX(planta.getPosX()+1000);
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX());
 
-            }else if(disparo.verificaColision(planta2)){
-                planta2.setPosX(planta2.getPosX()+1000);
-                disparoActivo=false;
-                disparo.setPosX(personaje.getPosX());
+        }else if(disparo.verificaColision(planta2)){
+            planta2.setPosX(planta2.getPosX()+1000);
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX());
 
-            }
+        }
 
 
     }
@@ -218,53 +225,53 @@ public class VistaJuego extends View  {
         disparo.setPosY(personaje.getPosY()-20);
         disparoActivo=true;
     }
-   /* private void drawScoresOnCanvas(Canvas canvas) {
+    /* private void drawScoresOnCanvas(Canvas canvas) {
+         Paint paint = new Paint();
+         paint.setTextSize(40);
+         paint.setColor(Color.WHITE);
+         paint.setTextAlign(Paint.Align.CENTER);
+
+         // Esto es pa dibujar al la tabla
+         float x1 = canvas.getWidth() / 4;
+         float y1 = canvas.getHeight()/6;
+         canvas.drawText(player1Score, x1, y1, paint);
+         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
+         float logoX = canvas.getWidth() / 6 - logo.getWidth() / 2;
+         float logoY = 0;
+         canvas.drawBitmap(logo, logoX, logoY, null);
+     }*/
+    private void drawScoresOnCanvas(Canvas canvas) {
         Paint paint = new Paint();
         paint.setTextSize(40);
         paint.setColor(Color.WHITE);
         paint.setTextAlign(Paint.Align.CENTER);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(3);
+        // Rectangulo con border rojo
+        paint.setColor(Color.rgb(255, 0, 0));
+        canvas.drawRect(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 60,
+                canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 60, paint);
 
-        // Esto es pa dibujar al la tabla
+        // Hay que dar más detalles aquí, color naranja
+        paint.setColor(Color.rgb(255, 165, 0));
+        canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
+                canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
+        canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
+                canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+
+        // Player 1 score
         float x1 = canvas.getWidth() / 4;
         float y1 = canvas.getHeight()/6;
-        canvas.drawText(player1Score, x1, y1, paint);
+        canvas.drawText(String.valueOf(player1Score), x1, y1, paint);
+        // Draw the "Danny" logo
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
         float logoX = canvas.getWidth() / 6 - logo.getWidth() / 2;
         float logoY = 0;
         canvas.drawBitmap(logo, logoX, logoY, null);
-    }*/
-   private void drawScoresOnCanvas(Canvas canvas) {
-       Paint paint = new Paint();
-       paint.setTextSize(40);
-       paint.setColor(Color.WHITE);
-       paint.setTextAlign(Paint.Align.CENTER);
-       paint.setStyle(Paint.Style.STROKE);
-       paint.setStrokeWidth(3);
-       // Rectangulo con border rojo
-       paint.setColor(Color.rgb(255, 0, 0));
-       canvas.drawRect(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 60,
-               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 60, paint);
-
-       // Hay que dar más detalles aquí, color naranja
-       paint.setColor(Color.rgb(255, 165, 0));
-       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
-               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
-       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
-               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);
-
-       paint.setStyle(Paint.Style.FILL);
-       paint.setColor(Color.WHITE);
-
-       // Player 1 score
-       float x1 = canvas.getWidth() / 4;
-       float y1 = canvas.getHeight()/6;
-       canvas.drawText(String.valueOf(player1Score), x1, y1, paint);
-       // Draw the "Danny" logo
-       Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
-       float logoX = canvas.getWidth() / 6 - logo.getWidth() / 2;
-       float logoY = 0;
-       canvas.drawBitmap(logo, logoX, logoY, null);
-   }
+    }
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -287,20 +294,20 @@ public class VistaJuego extends View  {
     }
 
     public class ThreadJuego extends Thread{
+
+
         @Override
         public void run() {
             while(true){
                 actualizaFisica();
-                // Utilice un manejador para llamar a updatePoints cada milisegundo
-                 if (personaje.verificaColision(cactus)){
-                     if (gameOverListener != null)
-                     gameOverListener.onGameOver(puntos);
-                     break;
-                }
 
-
-
-
+                if (personaje.verificaColision(cactus)){
+                    personaje=null;
+                    Intent intent = new Intent(context, GameOver.class);
+                    int points=0;
+                    intent.putExtra("points", points);
+                    context.startActivity(intent);
+                    ((Activity)context).finish();                }
 
 
             }
@@ -318,15 +325,12 @@ public class VistaJuego extends View  {
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_D:
-
-                if(disparoActivo==false){
-                    activaDisparo();
-
-                }
+                activaDisparo();
                 break;
             case KeyEvent.KEYCODE_SPACE:
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
                     personaje.setPosY(personaje.getPosY() - 400);
+
 
                 }
 
@@ -334,7 +338,6 @@ public class VistaJuego extends View  {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
 
