@@ -12,42 +12,35 @@
     android:background="@drawable/background_gradient">
 
 
-<TextView
+    <TextView
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
         style="@style/TitleTextView"
+        android:text="@string/tituloAplicacion" />
 
-        android:text="@string/tituloAplicacion"
-        android:textSize="25sp" />
     <Button
         android:id="@+id/bt_jugar"
+        style="@style/ButtonStyle"
+        android:background="@drawable/gradient_buttons"
+        android:text="@string/Jugar"
+        android:textColorHighlight="#F1A638" />
 
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="@string/Jugar"/>
     <Button
         android:id="@+id/bt_preferencias"
         style="@style/ButtonStyle"
-
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="@string/Preferencias"/>
+        android:background="@drawable/gradient_buttons"
+        android:shadowColor="#FF9800"
+        android:text="@string/Preferencias" />
     <Button
         android:id="@+id/bt_puntuaciones"
         style="@style/ButtonStyle"
-
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:background="@drawable/gradient_buttons"
         android:text="@string/Puntuaciones"/>
     <Button
         android:id="@+id/bt_salir"
         style="@style/ButtonStyle"
-
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:background="@drawable/gradient_buttons"
         android:text="@string/Salir"/>
 
 
