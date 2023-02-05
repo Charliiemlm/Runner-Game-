@@ -8,14 +8,18 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="30dp"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="@drawable/background_gradient">
 
-    <TextView
+
+<TextView
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
+        style="@style/TitleTextView"
+
         android:text="@string/tituloAplicacion"
         android:textSize="25sp" />
     <Button
@@ -26,28 +30,27 @@
         android:text="@string/Jugar"/>
     <Button
         android:id="@+id/bt_preferencias"
+        style="@style/ButtonStyle"
 
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Preferencias"/>
     <Button
         android:id="@+id/bt_puntuaciones"
+        style="@style/ButtonStyle"
 
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Puntuaciones"/>
     <Button
         android:id="@+id/bt_salir"
+        style="@style/ButtonStyle"
 
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/Salir"/>
 
-    <Button
-        android:id="@+id/btn_touch_control"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+
 
 
 </LinearLayout>

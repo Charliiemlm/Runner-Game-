@@ -13,8 +13,8 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:layout_width="81dp"
-        android:layout_height="68dp"
+        android:layout_width="91dp"
+        android:layout_height="91dp"
         android:background="@drawable/restart"
         android:contentDescription="restart"
         android:onClick="restart" />
@@ -26,8 +26,8 @@
         android:layout_weight="1" />
 
     <ImageButton
-        android:layout_width="74dp"
-        android:layout_height="58dp"
+        android:layout_width="91dp"
+        android:layout_height="match_parent"
         android:background="@drawable/exit"
         android:contentDescription="exit"
         android:onClick="exit" />
@@ -42,12 +42,12 @@ android:orientation="vertical"
 android:layout_marginBottom="64dp">
 
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="points: "
-    android:textColor="#330022"
-    android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="points: "
+        android:textColor="#330022"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvPoints"
