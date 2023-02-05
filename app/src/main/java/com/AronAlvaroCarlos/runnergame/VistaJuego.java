@@ -38,6 +38,7 @@ public class VistaJuego extends View  {
 
     boolean disparoActivo=false;
 
+    //puntos del jugador
     int puntos=0;
 
 
