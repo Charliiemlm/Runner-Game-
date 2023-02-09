@@ -5,16 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -22,12 +19,12 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.net.ConnectException;
 
-public class VistaJuego extends View implements View.OnTouchListener{
+public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
-
-    private Context context;
+     private Context context;
 
     private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
 
@@ -40,8 +37,6 @@ public class VistaJuego extends View implements View.OnTouchListener{
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
 
-
-
     boolean disparoActivo=false;
 
     int puntos=0;
@@ -52,12 +47,13 @@ public class VistaJuego extends View implements View.OnTouchListener{
     private static final float PASO_ACELERACION_DISPARO = 0.5f;
 
 
+
     public VistaJuego(Context context, AttributeSet attrs) {
 
         super(context, attrs);
-
         this.context=context;
         setOnTouchListener(this);
+
         Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
 
 
@@ -242,34 +238,50 @@ public class VistaJuego extends View implements View.OnTouchListener{
      }*/
     private void drawScoresOnCanvas(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setTextSize(40);
+        paint.setTextSize(80);
         paint.setColor(Color.WHITE);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(3);
         // Rectangulo con border rojo
         paint.setColor(Color.rgb(255, 0, 0));
-        canvas.drawRect(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 60,
-                canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 60, paint);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
+                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
+                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        //Orange but it's not likely to stay this way, better dark??
+        paint.setColor(Color.rgb(	255, 69, 0));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setShadowLayer(5, 10, 10, 0xff000000);
+        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
+                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+
 
         // Hay que dar más detalles aquí, color naranja
-        paint.setColor(Color.rgb(255, 165, 0));
-        canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
-                canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
-        canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
-                canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);
+      /* paint.setColor(Color.rgb(255, 165, 0));
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);*/
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
 
         // Player 1 score
-        float x1 = canvas.getWidth() / 4;
-        float y1 = canvas.getHeight()/6;
+        float x1 = canvas.getWidth() / 1 - 600;
+        float y1 = canvas.getHeight()/7 + 50;
         canvas.drawText(String.valueOf(player1Score), x1, y1, paint);
+        float x2 = canvas.getWidth() / 1 - 400;
+        float y2 = canvas.getHeight()/7 + 50;
+        canvas.drawText(" Pts", x2, y2, paint);
+        //canvas.drawPaint(paint);
         // Draw the "Danny" logo
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
-        float logoX = canvas.getWidth() / 6 - logo.getWidth() / 2;
-        float logoY = 0;
+        float logoX = canvas.getWidth() / 2 - logo.getWidth() / 2 +240;
+        float logoY = 50;
         canvas.drawBitmap(logo, logoX, logoY, null);
     }
     @Override
@@ -293,26 +305,22 @@ public class VistaJuego extends View implements View.OnTouchListener{
 
     }
 
-
-
     public class ThreadJuego extends Thread{
-
-
         @Override
         public void run() {
-            while(true){
+            while(true) {
                 actualizaFisica();
-
-                if (personaje.verificaColision(cactus) || personaje.verificaColision(avion) || personaje.verificaColision(planta) || personaje.verificaColision(planta2)){
+                // Utilice un manejador para llamar a updatePoints cada milisegundo
+                if (personaje.verificaColision(cactus) || personaje.verificaColision(avion) || personaje.verificaColision(planta) || personaje.verificaColision(planta2)) {
+                    //pa que no siga actualizando los puntos
                     personaje=null;
                     Intent intent = new Intent(context, GameOver.class);
-                    int points=0;
-                    intent.putExtra("points", points);
+                    intent.putExtra("points", player1Score);
                     context.startActivity(intent);
-                    ((Activity)context).finish();                }
-
-
+                    ((Activity) context).finish();
+                }
             }
+
         }
     }
 
@@ -327,20 +335,20 @@ public class VistaJuego extends View implements View.OnTouchListener{
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_D:
-                activaDisparo();
+
+                if(disparoActivo==false){
+                    activaDisparo();
+
+                }
                 break;
             case KeyEvent.KEYCODE_SPACE:
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
                     personaje.setPosY(personaje.getPosY() - 400);
-
-
                 }
-
                 break;
         }
         return super.onKeyDown(keyCode, event);
     }
-
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
@@ -363,20 +371,6 @@ public class VistaJuego extends View implements View.OnTouchListener{
         }
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
