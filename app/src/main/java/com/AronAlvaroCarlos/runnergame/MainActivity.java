@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity  {
 
     bPreferencias= (Button) findViewById(R.id.bt_preferencias);
 
-    bPuntuaciones=(Button) findViewById(R.id.bt_puntuaciones);
     bSalir= findViewById(R.id.bt_salir);
 
 
