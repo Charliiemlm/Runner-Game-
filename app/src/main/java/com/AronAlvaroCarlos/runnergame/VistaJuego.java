@@ -141,7 +141,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //posicionamos el avion en  pantalla
         avion.setPosX((ancho - avion.getAncho()) /-5);
-        avion.setPosY((alto - avion.getAlto()) /2.2);
+        avion.setPosY((alto - avion.getAlto()) /1.9);
 
 
 
