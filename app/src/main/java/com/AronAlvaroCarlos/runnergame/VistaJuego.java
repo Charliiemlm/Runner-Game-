@@ -60,7 +60,6 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
         personaje = new Grafico(this, drawablePersonaje);
-
         personaje.setIncX(5);
 
 
@@ -159,7 +158,6 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             return;
         }
 
-
         //Para una ejecucion en tiempo real
         //calculamos el factor de movimiento
 
@@ -189,37 +187,41 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             disparo.rotacionDisparo();
 
         }
-        player1Score ++;
         if(disparo.verificaColision(cactus) ){
             cactus.setPosX(cactus.getPosX()+1000);
             disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
+            disparo.setPosX(personaje.getPosX()-1000);
 
         }else if(disparo.verificaColision(avion)){
             avion.setPosX(avion.getPosX()+1000);
             disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
+            disparo.setPosX(personaje.getPosX()-1000);
 
         }
         else if(disparo.verificaColision(planta)){
             planta.setPosX(planta.getPosX()+1000);
             disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
+            disparo.setPosX(personaje.getPosX()-1000);
+
 
         }else if(disparo.verificaColision(planta2)){
             planta2.setPosX(planta2.getPosX()+1000);
             disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
-
+            disparo.setPosX(personaje.getPosX()-1000);
         }
+        player1Score ++;
+
 
 
     }
 
     public void activaDisparo(){
-        disparo.setPosX(personaje.getPosX()-30);
-        disparo.setPosY(personaje.getPosY()-20);
-        disparoActivo=true;
+        if(disparo.getPosX()>=personaje.getPosX()-1000){
+            disparo.setPosX(personaje.getPosX()-30);
+            disparo.setPosY(personaje.getPosY()-20);
+            disparoActivo=true;
+        }
+
     }
     /* private void drawScoresOnCanvas(Canvas canvas) {
          Paint paint = new Paint();
