@@ -313,11 +313,15 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
                 if (personaje.verificaColision(cactus) || personaje.verificaColision(avion) || personaje.verificaColision(planta) || personaje.verificaColision(planta2)) {
                     //pa que no siga actualizando los puntos
-                    personaje=null;
+                    //personaje=null;
+
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
                     context.startActivity(intent);
+
                     ((Activity) context).finish();
+                    interrupt();
+                    break;
                 }
             }
 
