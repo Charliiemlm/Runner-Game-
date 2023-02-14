@@ -128,7 +128,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //posicionamos el cactus en  pantalla
         cactus.setPosX((ancho - cactus.getAncho()) /1);
-        cactus.setPosY((alto - cactus.getAlto()) /1.1);
+        cactus.setPosY((alto - cactus.getAlto()) /1.15);
 
 
         //posicionamos el cactus en  pantalla
