@@ -193,7 +193,7 @@ public class Grafico {
 
     public boolean verificaColision(Grafico g) {
 
-        return (distancia(g) < (radioColision + g.radioColision));
+        return (distancia(g)-1 < (radioColision + g.radioColision));
 
     }
 

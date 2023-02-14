@@ -122,27 +122,27 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         //cuanto mayor sea más se acerca a la izquierda
         personaje.setPosX((ancho - personaje.getAncho()) /13);
         //Cuanta más se acerque al 1 más se acerca abajo
-        personaje.setPosY((alto - personaje.getAlto()) /1.2);
+        personaje.setPosY((alto - personaje.getAlto()) /1.1);
         personaje.setPosInicial(personaje.getPosY());
 
 
 
         //posicionamos el cactus en  pantalla
         cactus.setPosX((ancho - cactus.getAncho()) /1);
-        cactus.setPosY((alto - cactus.getAlto()) /1.2);
+        cactus.setPosY((alto - cactus.getAlto()) /1.1);
 
 
         //posicionamos el cactus en  pantalla
         planta.setPosX((ancho - planta.getAncho()) /-1);
-        planta.setPosY((alto - planta.getAlto()) /1.2);
+        planta.setPosY((alto - planta.getAlto()) /1.1);
 
         planta2.setPosX((ancho - planta.getAncho()) /-10);
-        planta2.setPosY((alto - planta.getAlto()) /1.2);
+        planta2.setPosY((alto - planta.getAlto()) /1.1);
 
 
         //posicionamos el avion en  pantalla
         avion.setPosX((ancho - avion.getAncho()) /-5);
-        avion.setPosY((alto - avion.getAlto()) /4);
+        avion.setPosY((alto - avion.getAlto()) /2);
 
 
 

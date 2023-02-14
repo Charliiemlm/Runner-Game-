@@ -57,16 +57,6 @@ public class MainActivity extends AppCompatActivity  {
         }
     });
 
-
-		bPuntuaciones.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            //lanzarPuntuaciones(null);
-
-        }
-    });
-
 		bPreferencias.setOnClickListener(new View.OnClickListener() {
 
         @Override
