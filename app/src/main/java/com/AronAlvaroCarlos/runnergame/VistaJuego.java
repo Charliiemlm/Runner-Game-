@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,7 +25,9 @@ import java.net.ConnectException;
 
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
-     private Context context;
+
+
+    private Context context;
 
     private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
 
@@ -182,10 +185,15 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         personaje.salto();
 
 
+        //comprobar si el disparo se ha ido de la pantalla
+        if(disparo.getPosX()>=disparo.returnWidth()){
+            disparo.setPosX(personaje.getPosX()-1000);
+            disparoActivo=false;
+        }
+
         if (disparoActivo){
             disparo.incrementaPos(factorMov);
             disparo.rotacionDisparo();
-
         }
         if(disparo.verificaColision(cactus) ){
             cactus.setPosX(cactus.getPosX()+1000);
@@ -206,6 +214,11 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         }else if(disparo.verificaColision(planta2)){
             planta2.setPosX(planta2.getPosX()+1000);
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX()-1000);
+        }
+        else if(disparo.verificaColision(avion)){
+            avion.setPosX(avion.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-1000);
         }

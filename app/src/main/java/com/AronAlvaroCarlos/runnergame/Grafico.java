@@ -154,6 +154,9 @@ public class Grafico {
 
 
     }
+    public int returnWidth(){
+       return view.getWidth();
+    }
     public void rotacionDisparo() {
 
             angulo = 5;
