@@ -34,11 +34,6 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     boolean disparoActivo=false;
 
     int puntos=0;
-    private int giroDisparo; // Incremento de dirección
-    private float aceleracionDisparo; // aumento de velocidad
-    // Incremento estándar de giro y aceleración
-    private static final int PASO_GIRO_DISPARO= 5;
-    private static final float PASO_ACELERACION_DISPARO = 0.5f;
 
 
     public VistaJuego(Context context, AttributeSet attrs) {
@@ -78,13 +73,13 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 R.drawable.plant);
         planta = new Grafico(this, drawablePlanta);
         //casper.setIncY(4);
-        planta.setIncX(-4);
+        planta.setIncX(-3);
 
         drawablePlanta2 = context.getResources().getDrawable(
                 R.drawable.plant);
         planta2 = new Grafico(this, drawablePlanta2);
         //casper.setIncY(4);
-        planta2.setIncX(-4);
+        planta2.setIncX(-3);
 
 
 
@@ -229,7 +224,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     public void activaDisparo(){
         if(disparo.getPosX()>=personaje.getPosX()-1000 && disparosRestantes>0){
             disparo.setPosX(personaje.getPosX()-30);
-            disparo.setPosY(personaje.getPosY()-20);
+            disparo.setPosY(personaje.getPosY());
             disparoActivo=true;
             disparosRestantes--;
         }
