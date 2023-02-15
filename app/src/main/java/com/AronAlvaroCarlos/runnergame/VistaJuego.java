@@ -8,28 +8,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.net.ConnectException;
-
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
-
+    private int disparosRestantes=5;
 
     private Context context;
 
-    private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
+    private Grafico personaje, casper,avion,planta, planta2, disparo; // Gráficos
 
     ////// THREAD Y TIEMPO //////
 
@@ -50,14 +41,13 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     private static final float PASO_ACELERACION_DISPARO = 0.5f;
 
 
-
     public VistaJuego(Context context, AttributeSet attrs) {
 
         super(context, attrs);
         this.context=context;
         setOnTouchListener(this);
 
-        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
+        Drawable drawablePersonaje, drawableCasper, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
 
 
         //Instanciando Personaje
@@ -73,12 +63,12 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
 
 
-        //Instanciando los cactus
-        drawableCactus = context.getResources().getDrawable(
-                R.drawable.cactus);
-        cactus = new Grafico(this, drawableCactus);
-        //cactus.setIncY(4);
-        cactus.setIncX(-4);
+        //Instanciando los casper
+        drawableCasper = context.getResources().getDrawable(
+                R.drawable.casper);
+        casper = new Grafico(this, drawableCasper);
+        //casper.setIncY(4);
+        casper.setIncX(-4);
 
         drawablePlanta2 = context.getResources().getDrawable(
                 R.drawable.plant);
@@ -87,13 +77,13 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         drawablePlanta = context.getResources().getDrawable(
                 R.drawable.plant);
         planta = new Grafico(this, drawablePlanta);
-        //cactus.setIncY(4);
+        //casper.setIncY(4);
         planta.setIncX(-4);
 
         drawablePlanta2 = context.getResources().getDrawable(
                 R.drawable.plant);
         planta2 = new Grafico(this, drawablePlanta2);
-        //cactus.setIncY(4);
+        //casper.setIncY(4);
         planta2.setIncX(-4);
 
 
@@ -129,12 +119,12 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
 
 
-        //posicionamos el cactus en  pantalla
-        cactus.setPosX((ancho - cactus.getAncho()) /1);
-        cactus.setPosY((alto - cactus.getAlto()) /1.15);
+        //posicionamos el casper en  pantalla
+        casper.setPosX((ancho - casper.getAncho()) /1);
+        casper.setPosY((alto - casper.getAlto()) /1.15);
 
 
-        //posicionamos el cactus en  pantalla
+        //posicionamos el casper en  pantalla
         planta.setPosX((ancho - planta.getAncho()) /-1);
         planta.setPosY((alto - planta.getAlto()) /1.1);
 
@@ -178,7 +168,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         // personaje.incrementaPos (factorMov);
         // Actualizamos posición
-        cactus.incrementaPos (factorMov);
+        casper.incrementaPos (factorMov);
         avion.incrementaPosNave(factorMov);
         planta.incrementaPos(factorMov);
         planta2.incrementaPos(factorMov);
@@ -191,33 +181,41 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             disparoActivo=false;
         }
 
+        //si el disparo esta activo se le añade movimiento
         if (disparoActivo){
             disparo.incrementaPos(factorMov);
             disparo.rotacionDisparo();
+
         }
-        if(disparo.verificaColision(cactus) ){
-            cactus.setPosX(cactus.getPosX()+1000);
+
+        if(disparo.verificaColision(casper) ){
+            casper.setPosX(casper.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-1000);
 
-        }else if(disparo.verificaColision(avion)){
+        }
+        if(disparo.verificaColision(avion)){
             avion.setPosX(avion.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-1000);
-
         }
-        else if(disparo.verificaColision(planta)){
+        if(disparo.verificaColision(planta)){
             planta.setPosX(planta.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-1000);
 
-
-        }else if(disparo.verificaColision(planta2)){
+        }
+        if(disparo.verificaColision(planta)){
+            planta.setPosX(planta.getPosX()+1000);
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX()-1000);
+        }
+        if(disparo.verificaColision(planta2)){
             planta2.setPosX(planta2.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-1000);
         }
-        else if(disparo.verificaColision(avion)){
+         if(disparo.verificaColision(avion)){
             avion.setPosX(avion.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-1000);
@@ -229,10 +227,11 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     }
 
     public void activaDisparo(){
-        if(disparo.getPosX()>=personaje.getPosX()-1000){
+        if(disparo.getPosX()>=personaje.getPosX()-1000 && disparosRestantes>0){
             disparo.setPosX(personaje.getPosX()-30);
             disparo.setPosY(personaje.getPosY()-20);
             disparoActivo=true;
+            disparosRestantes--;
         }
 
     }
@@ -306,15 +305,15 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         personaje.dibujaGrafico(canvas);
         avion.dibujaGrafico(canvas);
-        cactus.dibujaGrafico(canvas);
+        casper.dibujaGrafico(canvas);
         planta2.dibujaGrafico(canvas);
         planta.dibujaGrafico(canvas);
         planta.dibujaGrafico(canvas);
 
         if(disparoActivo){
             disparo.dibujaGrafico(canvas);
-
         }
+
         drawScoresOnCanvas(canvas);
 
 
@@ -326,7 +325,8 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             while(true) {
                 actualizaFisica();
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
-                if (personaje.verificaColision(cactus) || personaje.verificaColision(avion) || personaje.verificaColision(planta) || personaje.verificaColision(planta2)) {
+                if (personaje.verificaColision(casper) || personaje.verificaColision(avion)
+                        || personaje.verificaColision(planta) || personaje.verificaColision(planta2)) {
                     //pa que no siga actualizando los puntos
                     //personaje=null;
 
