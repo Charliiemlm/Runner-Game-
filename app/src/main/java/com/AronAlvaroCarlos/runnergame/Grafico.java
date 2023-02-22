@@ -144,7 +144,6 @@ public class Grafico {
     }
     public void salto() {
 
-
         if(posY<posInicial){
             posY += 20;
             rotacion+=5;
