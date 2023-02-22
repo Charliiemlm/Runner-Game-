@@ -20,7 +20,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
     private Context context;
 
-    private Grafico personaje, casper,avion,muerte, disparo; // Gráficos
+    private Grafico personaje, casper,volador,muerte, disparo; // Gráficos
 
     ////// THREAD Y TIEMPO //////
 
@@ -41,7 +41,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         this.context=context;
         setOnTouchListener(this);
 
-        Drawable drawablePersonaje, drawableCasper, drawableAvion , drawablemuerte, drawableDisparo;
+        Drawable drawablePersonaje, drawableCasper, drawablevolador , drawablemuerte, drawableDisparo;
 
 
         //Instanciando Personaje
@@ -53,7 +53,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         //instanciando disparo
         drawableDisparo = context.getResources().getDrawable(R.drawable.disparo);
         disparo = new Grafico(this,drawableDisparo);
-        disparo.setIncX(8);
+        disparo.setIncX(7);
 
 
 
@@ -73,13 +73,12 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
 
 
-        //Instanciando el avion
-        drawableAvion = context.getResources().getDrawable(
-                R.drawable.avion);
-        avion = new Grafico(this, drawableAvion);
-        //avion.setIncY(Math.random() * 4 - 2);
-        avion.setIncX(-6);
-
+        //Instanciando el volador
+        drawablevolador = context.getResources().getDrawable(
+                R.drawable.volador2);
+        volador = new Grafico(this, drawablevolador);
+        //volador.setIncY(Math.random() * 4 - 2);
+        volador.setIncX(-6);
 
     }
 
@@ -113,9 +112,9 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         muerte.setPosY((alto - muerte.getAlto()) /1.1);
 
 
-        //posicionamos el avion en  pantalla
-        avion.setPosX((ancho - avion.getAncho()) /-5);
-        avion.setPosY((alto - avion.getAlto()) /1.9);
+        //posicionamos el volador en  pantalla
+        volador.setPosX((ancho - volador.getAncho()) /-5);
+        volador.setPosY((alto - volador.getAlto()) /1.7);
 
 
 
@@ -141,7 +140,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         // Actualizamos posición
         casper.incrementaPos (factorMov);
-        avion.incrementaPosNave(factorMov);
+        volador.incrementaPosNave(factorMov);
         muerte.incrementaPos(factorMov);
         personaje.salto();
 
@@ -166,8 +165,8 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             System.out.println("-------------COLISION CON CASTER");
 
         }
-        if(disparo.verificaColision(avion)){
-            avion.setPosX(avion.getPosX()+1000);
+        if(disparo.verificaColision(volador)){
+            volador.setPosX(volador.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-500);
         }
@@ -179,8 +178,8 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
 
         }
-         if(disparo.verificaColision(avion)){
-            avion.setPosX(avion.getPosX()+1000);
+         if(disparo.verificaColision(volador)){
+            volador.setPosX(volador.getPosX()+1000);
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-500);
         }
@@ -268,7 +267,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         super.onDraw(canvas);
 
         personaje.dibujaGrafico(canvas);
-        avion.dibujaGrafico(canvas);
+        volador.dibujaGrafico(canvas);
         casper.dibujaGrafico(canvas);
         muerte.dibujaGrafico(canvas);
 
@@ -287,15 +286,16 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             while(true) {
                 actualizaFisica();
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
-                if (personaje.verificaColision(casper) || personaje.verificaColision(avion)
+                if (personaje.verificaColision(casper) || personaje.verificaColision(volador)
                         || personaje.verificaColision(muerte)) {
-                    //pa que no siga actualizando los puntos
-                    //personaje=null;
-
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
                     context.startActivity(intent);
-
+                    try {
+                        Thread.sleep(500); // Espera 500 milisegundos para permitir que se actualice el diseño de la actividad GameOver.
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     ((Activity) context).finish();
                     interrupt();
@@ -326,7 +326,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             case KeyEvent.KEYCODE_SPACE:
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
                    personaje.setPosY(personaje.getPosY() - 400);
-
+                   personaje.salto();
                 }
                 break;
         }
@@ -355,5 +355,10 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         return true;
     }
 
-
+    public void setDisparosRestantes(int disparosRestantes) {
+        this.disparosRestantes = disparosRestantes;
+    }
+    public void setVelocidadJuego(int velocidadJuego) {
+        PERIODO_PROCESO = velocidadJuego;
+    }
 }

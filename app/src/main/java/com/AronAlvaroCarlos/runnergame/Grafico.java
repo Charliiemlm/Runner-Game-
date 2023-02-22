@@ -37,10 +37,7 @@ public class Grafico {
     public static final int MAX_VELOCIDAD = 20;
 
     public Grafico(View view, Drawable drawable) {
-
-
         this.view = view;
-
         this.drawable = drawable;
 
         //Permite conseguir la anchura de la imagen mediante la clase del Drawable
