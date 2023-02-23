@@ -155,7 +155,7 @@ public class Grafico {
     }
 
     public void rotacionDisparo() {
-            angulo += 0.5;
+            angulo += .3;
     }
     public void incrementaPosMain(double factor) {
         //posX += incX * factor;

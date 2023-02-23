@@ -45,7 +45,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         //instanciando disparo
         drawableDisparo = context.getResources().getDrawable(R.drawable.disparo);
         disparo = new Grafico(this,drawableDisparo);
-        disparo.setIncX(7);
+        disparo.setIncX(9);
 
         //Instanciando los casper
         drawableCasper = context.getResources().getDrawable(
@@ -70,11 +70,11 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //Instanciando el volador
         drawablevolador = context.getResources().getDrawable(
-                R.drawable.volador2);
+                R.drawable.mosca);
 
         volador = new Grafico(this, drawablevolador);
         //volador.setIncY(Math.random() * 4 - 2);
-        volador.setIncX(-6);
+        volador.setIncX(-10);
 
     }
 
@@ -114,7 +114,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //posicionamos el volador en  pantalla
         volador.setPosX((ancho - volador.getAncho()) / (float)-5);
-        volador.setPosY((alto - volador.getAlto()) /1.7);
+        volador.setPosY((alto - volador.getAlto()) /1.777);
 
 
 
