@@ -18,7 +18,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
     private int disparosRestantes=5;
     private Context context;
-    private Grafico personaje, casper,volador,muerte, disparo; // Gráficos
+    private Grafico personaje, casper,volador,muerte, disparo, mosca; // Gráficos
     // Thread encargado de procesar el juego
     private ThreadJuego thread = new ThreadJuego();
     // Cada cuanto queremos procesar cambios (ms)
@@ -32,7 +32,8 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         this.context=context;
         setOnTouchListener(this);
 
-        Drawable drawablePersonaje, drawableCasper, drawablevolador , drawablemuerte, drawableDisparo;
+        Drawable drawablePersonaje, drawableCasper,
+                drawablevolador , drawablemuerte, drawableDisparo , drawableMosca;
 
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
@@ -58,9 +59,17 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         //casper.setIncY(4);
         muerte.setIncX(-4);
 
+        //Instanciando Mosca
+        drawablemuerte = context.getResources().getDrawable(
+                R.drawable.mosca);
+        mosca = new Grafico(this, drawablemuerte);
+        //casper.setIncY(4);
+        mosca.setIncX(-4);
+
         //Instanciando el volador
         drawablevolador = context.getResources().getDrawable(
                 R.drawable.volador2);
+
         volador = new Grafico(this, drawablevolador);
         //volador.setIncY(Math.random() * 4 - 2);
         volador.setIncX(-6);
@@ -95,6 +104,12 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         muerte.setPosX((ancho - muerte.getAncho()) /-1);
         muerte.setPosY((alto - muerte.getAlto()) /1.1);
 
+
+        //posicionamos el casper en  pantalla
+        mosca.setPosX((ancho - mosca.getAncho()) /-1);
+        mosca.setPosY((alto - mosca.getAlto()) /1.1);
+
+
         //posicionamos el volador en  pantalla
         volador.setPosX((ancho - volador.getAncho()) /-5);
         volador.setPosY((alto - volador.getAlto()) /1.7);
@@ -124,6 +139,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         casper.incrementaPos (factorMov);
         volador.incrementaPosNave(factorMov);
         muerte.incrementaPos(factorMov);
+        mosca.incrementaPos(factorMov);
         personaje.salto();
 
         //si el disparo esta activo se le añade movimiento
@@ -138,28 +154,31 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             disparoActivo=false;
         }
 
-
         //colisiones del disparo
-
         if(disparo.verificaColision(casper) ){
-            casper.setPosX(casper.returnWidth()+(int) (Math.random()*1000+200));
+            casper.setPosX(casper.returnWidth()+(int) (Math.random()*500+100));
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-500);
         }
         if(disparo.verificaColision(volador)){
-            volador.setPosX(volador.returnWidth()+(int) (Math.random()*1000+200));
+            volador.setPosX(volador.returnWidth()+(int) (Math.random()*500+100));
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-500);
         }
         if(disparo.verificaColision(muerte)){
-            muerte.setPosX(muerte.returnWidth()+(int) (Math.random()*1000+200));
+            muerte.setPosX(muerte.returnWidth()+(int) (Math.random()*500+100));
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-500);
         }
          if(disparo.verificaColision(volador)){
-            volador.setPosX(volador.returnWidth()+(int) (Math.random()*1000+200));
+            volador.setPosX(volador.returnWidth()+(int) (Math.random()*500+100));
             disparoActivo=false;
             disparo.setPosX(personaje.getPosX()-500);
+        }
+        if(disparo.verificaColision(mosca)){
+            mosca.setPosX(mosca.returnWidth()+(int) (Math.random()*500+100));
+            disparoActivo=false;
+            disparo.setPosX(mosca.getPosX()-500);
         }
 
 
@@ -247,6 +266,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         volador.dibujaGrafico(canvas);
         casper.dibujaGrafico(canvas);
         muerte.dibujaGrafico(canvas);
+        mosca.dibujaGrafico(canvas);
         //si es true se pinta el disparo
         if(disparoActivo){
             disparo.dibujaGrafico(canvas);
@@ -262,7 +282,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 actualizaFisica();
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
                 if (personaje.verificaColision(casper) || personaje.verificaColision(volador)
-                        || personaje.verificaColision(muerte)) {
+                        || personaje.verificaColision(muerte)  || personaje.verificaColision(mosca)) {
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
                     context.startActivity(intent);
