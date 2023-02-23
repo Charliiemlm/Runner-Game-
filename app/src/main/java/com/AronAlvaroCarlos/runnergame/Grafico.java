@@ -153,10 +153,9 @@ public class Grafico {
     public int returnWidth(){
        return view.getWidth();
     }
+
     public void rotacionDisparo() {
-
-            angulo = 5;
-
+            angulo += 0.5;
     }
     public void incrementaPosMain(double factor) {
         //posX += incX * factor;
