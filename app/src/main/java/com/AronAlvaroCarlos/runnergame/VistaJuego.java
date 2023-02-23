@@ -1,5 +1,6 @@
 package com.AronAlvaroCarlos.runnergame;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,102 +9,72 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.net.ConnectException;
-
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
-     private Context context;
-
-    private Grafico personaje, cactus,avion,planta, planta2, disparo; // Gráficos
-
-    ////// THREAD Y TIEMPO //////
-
+    private int disparosRestantes=5;
+    private final Context context;
+    private Grafico personaje, casper,volador,muerte, disparo, mosca; // Gráficos
     // Thread encargado de procesar el juego
-    private ThreadJuego thread = new ThreadJuego();
+    private final ThreadJuego thread = new ThreadJuego();
     // Cada cuanto queremos procesar cambios (ms)
-    private static int PERIODO_PROCESO = 50;
+    private static int PERIODO_PROCESO = 55;
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
-
     boolean disparoActivo=false;
 
-    int puntos=0;
-    private int giroDisparo; // Incremento de dirección
-    private float aceleracionDisparo; // aumento de velocidad
-    // Incremento estándar de giro y aceleración
-    private static final int PASO_GIRO_DISPARO= 5;
-    private static final float PASO_ACELERACION_DISPARO = 0.5f;
-
-
-
+    @SuppressLint("UseCompatLoadingForDrawables")
     public VistaJuego(Context context, AttributeSet attrs) {
-
         super(context, attrs);
         this.context=context;
         setOnTouchListener(this);
 
-        Drawable drawablePersonaje, drawableCactus, drawableAvion , drawablePlanta, drawablePlanta2, drawableDisparo;
-
+        Drawable drawablePersonaje, drawableCasper,
+                drawablevolador , drawablemuerte, drawableDisparo , drawableMosca;
 
         //Instanciando Personaje
         drawablePersonaje = context.getResources().getDrawable(R.drawable.personaje);
         personaje = new Grafico(this, drawablePersonaje);
-
-        personaje.setIncX(5);
-
+        personaje.setIncX(15);
 
         //instanciando disparo
         drawableDisparo = context.getResources().getDrawable(R.drawable.disparo);
         disparo = new Grafico(this,drawableDisparo);
-        disparo.setIncX(15);
+        disparo.setIncX(9);
 
+        //Instanciando los casper
+        drawableCasper = context.getResources().getDrawable(
+                R.drawable.casper);
+        casper = new Grafico(this, drawableCasper);
+        //casper.setIncY(4);
+        casper.setIncX(-4);
 
+        //Instanciando los muerte
+        drawablemuerte = context.getResources().getDrawable(
+                R.drawable.muerte);
+        muerte = new Grafico(this, drawablemuerte);
+        //casper.setIncY(4);
+        muerte.setIncX(-4);
 
-        //Instanciando los cactus
-        drawableCactus = context.getResources().getDrawable(
-                R.drawable.cactus);
-        cactus = new Grafico(this, drawableCactus);
-        //cactus.setIncY(4);
-        cactus.setIncX(-4);
+        //Instanciando Mosca
+        drawableMosca = context.getResources().getDrawable(
+                R.drawable.mosca);
+        mosca = new Grafico(this, drawableMosca);
+        //casper.setIncY(4);
+        mosca.setIncX(-4);
 
-        drawablePlanta2 = context.getResources().getDrawable(
-                R.drawable.plant);
+        //Instanciando el volador
+        drawablevolador = context.getResources().getDrawable(
+                R.drawable.mosca);
 
-        //Instanciando los planta
-        drawablePlanta = context.getResources().getDrawable(
-                R.drawable.plant);
-        planta = new Grafico(this, drawablePlanta);
-        //cactus.setIncY(4);
-        planta.setIncX(-4);
-
-        drawablePlanta2 = context.getResources().getDrawable(
-                R.drawable.plant);
-        planta2 = new Grafico(this, drawablePlanta2);
-        //cactus.setIncY(4);
-        planta2.setIncX(-4);
-
-
-
-
-        //Instanciando el avion
-        drawableAvion = context.getResources().getDrawable(
-                R.drawable.avion);
-        avion = new Grafico(this, drawableAvion);
-        //avion.setIncY(Math.random() * 4 - 2);
-        avion.setIncX(-6);
-
+        volador = new Grafico(this, drawablevolador);
+        //volador.setIncY(Math.random() * 4 - 2);
+        volador.setIncX(-10);
 
     }
 
@@ -120,30 +91,30 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //posicionamos el personaje en el centro de la pantalla
         //cuanto mayor sea más se acerca a la izquierda
-        personaje.setPosX((ancho - personaje.getAncho()) /13);
+        personaje.setPosX((ancho - personaje.getAncho()) / (float)13);
+
         //Cuanta más se acerque al 1 más se acerca abajo
         personaje.setPosY((alto - personaje.getAlto()) /1.1);
         personaje.setPosInicial(personaje.getPosY());
 
 
+        //posicionamos el casper en  pantalla
+        casper.setPosX((ancho - casper.getAncho()));
+        casper.setPosY((alto - casper.getAlto()) /1.18);
 
-        //posicionamos el cactus en  pantalla
-        cactus.setPosX((ancho - cactus.getAncho()) /1);
-        cactus.setPosY((alto - cactus.getAlto()) /1.1);
-
-
-        //posicionamos el cactus en  pantalla
-        planta.setPosX((ancho - planta.getAncho()) /-1);
-        planta.setPosY((alto - planta.getAlto()) /1.1);
-
-        planta2.setPosX((ancho - planta.getAncho()) /-10);
-        planta2.setPosY((alto - planta.getAlto()) /1.1);
+        //posicionamos el casper en  pantalla
+        muerte.setPosX((ancho - muerte.getAncho()) /(float)-1);
+        muerte.setPosY((alto - muerte.getAlto()) /1.1);
 
 
-        //posicionamos el avion en  pantalla
-        avion.setPosX((ancho - avion.getAncho()) /-5);
-        avion.setPosY((alto - avion.getAlto()) /2);
+        //posicionamos el casper en  pantalla
+        mosca.setPosX((ancho - mosca.getAncho()) / (float)-1);
+        mosca.setPosY((alto - mosca.getAlto()) /1.1);
 
+
+        //posicionamos el volador en  pantalla
+        volador.setPosX((ancho - volador.getAncho()) / (float)-5);
+        volador.setPosY((alto - volador.getAlto()) /1.777);
 
 
 
@@ -159,67 +130,73 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             return;
         }
 
-
         //Para una ejecucion en tiempo real
         //calculamos el factor de movimiento
 
-        double factorMov= (ahora-ultimo_Proceso)/PERIODO_PROCESO;
+        double factorMov= (ahora-ultimo_Proceso)/ (float)PERIODO_PROCESO;
 
         ultimo_Proceso=ahora;//para la proxima vez
 
-        //Actualizamos velocidad y dirección de la nave a partir de
-        // giroNave y aceleracionNave (según la entrada del jugador)
-
-
-        //Actualizamos si el módulo de la velocidad no excede el máximo
-
-
-
-        // personaje.incrementaPos (factorMov);
         // Actualizamos posición
-        cactus.incrementaPos (factorMov);
-        avion.incrementaPosNave(factorMov);
-        planta.incrementaPos(factorMov);
-        planta2.incrementaPos(factorMov);
+        casper.incrementaPos (factorMov);
+        volador.incrementaPosNave(factorMov);
+        muerte.incrementaPos(factorMov);
+        mosca.incrementaPos(factorMov);
         personaje.salto();
 
-
+        //si el disparo esta activo se le añade movimiento
         if (disparoActivo){
             disparo.incrementaPos(factorMov);
             disparo.rotacionDisparo();
-
         }
+
+        //comprobar si el disparo se ha ido de la pantalla
+        if(disparo.getPosX()>=disparo.returnWidth()){
+            disparo.setPosX(personaje.getPosX()-500);
+            disparoActivo=false;
+        }
+
+        //colisiones del disparo
+        if(disparo.verificaColision(casper) ){
+            casper.setPosX(casper.returnWidth()+(int) (Math.random()*500+100));
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX()-500);
+        }
+        if(disparo.verificaColision(volador)){
+            volador.setPosX(volador.returnWidth()+(int) (Math.random()*500+100));
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX()-500);
+        }
+        if(disparo.verificaColision(muerte)){
+            muerte.setPosX(muerte.returnWidth()+(int) (Math.random()*500+100));
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX()-500);
+        }
+         if(disparo.verificaColision(volador)){
+            volador.setPosX(volador.returnWidth()+(int) (Math.random()*500+100));
+            disparoActivo=false;
+            disparo.setPosX(personaje.getPosX()-500);
+        }
+        if(disparo.verificaColision(mosca)){
+            mosca.setPosX(mosca.returnWidth()+(int) (Math.random()*500+100));
+            disparoActivo=false;
+            disparo.setPosX(mosca.getPosX()-500);
+        }
+
+
+         //sumamos puntuacion aqui ya que se se ejecuta continuamente
         player1Score ++;
-        if(disparo.verificaColision(cactus) ){
-            cactus.setPosX(cactus.getPosX()+1000);
-            disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
-
-        }else if(disparo.verificaColision(avion)){
-            avion.setPosX(avion.getPosX()+1000);
-            disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
-
-        }
-        else if(disparo.verificaColision(planta)){
-            planta.setPosX(planta.getPosX()+1000);
-            disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
-
-        }else if(disparo.verificaColision(planta2)){
-            planta2.setPosX(planta2.getPosX()+1000);
-            disparoActivo=false;
-            disparo.setPosX(personaje.getPosX());
-
-        }
-
-
     }
 
     public void activaDisparo(){
-        disparo.setPosX(personaje.getPosX()-30);
-        disparo.setPosY(personaje.getPosY()-20);
-        disparoActivo=true;
+        //filtro para evitar que se pueda spamear el disparo
+        if(disparo.getPosX()>=personaje.getPosX()-500 && disparosRestantes>0){
+            disparo.setPosX(personaje.getPosX());
+            disparo.setPosY(personaje.getPosY());
+            disparoActivo=true;
+            disparosRestantes--;
+        }
+
     }
     /* private void drawScoresOnCanvas(Canvas canvas) {
          Paint paint = new Paint();
@@ -246,18 +223,18 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         // Rectangulo con border rojo
         paint.setColor(Color.rgb(255, 0, 0));
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
-                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60,
+                canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
-        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
-                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60,
+                canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
         //Orange but it's not likely to stay this way, better dark??
         paint.setColor(Color.rgb(	255, 69, 0));
         paint.setStyle(Paint.Style.STROKE);
         paint.setShadowLayer(5, 10, 10, 0xff000000);
-        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
-                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60,
+                canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
 
 
         // Hay que dar más detalles aquí, color naranja
@@ -271,38 +248,33 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         paint.setColor(Color.WHITE);
 
         // Player 1 score
-        float x1 = canvas.getWidth() / 1 - 600;
-        float y1 = canvas.getHeight()/7 + 50;
+        float x1 = canvas.getWidth() - 600;
+        float y1 = canvas.getHeight()/ (float)7 + 50;
         canvas.drawText(String.valueOf(player1Score), x1, y1, paint);
-        float x2 = canvas.getWidth() / 1 - 400;
-        float y2 = canvas.getHeight()/7 + 50;
+        float x2 = canvas.getWidth() - 400;
+        float y2 = canvas.getHeight()/(float)7 + 50;
         canvas.drawText(" Pts", x2, y2, paint);
         //canvas.drawPaint(paint);
         // Draw the "Danny" logo
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
-        float logoX = canvas.getWidth() / 2 - logo.getWidth() / 2 +240;
+        float logoX = canvas.getWidth() / (float)2 - logo.getWidth() / (float)2 +240;
         float logoY = 50;
         canvas.drawBitmap(logo, logoX, logoY, null);
     }
     @Override
     protected void onDraw(Canvas canvas) {
-
         super.onDraw(canvas);
-
         personaje.dibujaGrafico(canvas);
-        avion.dibujaGrafico(canvas);
-        cactus.dibujaGrafico(canvas);
-        planta2.dibujaGrafico(canvas);
-        planta.dibujaGrafico(canvas);
-        planta.dibujaGrafico(canvas);
-
+        volador.dibujaGrafico(canvas);
+        casper.dibujaGrafico(canvas);
+        muerte.dibujaGrafico(canvas);
+        mosca.dibujaGrafico(canvas);
+        //si es true se pinta el disparo
         if(disparoActivo){
             disparo.dibujaGrafico(canvas);
-
         }
+        //pintar puntuacion
         drawScoresOnCanvas(canvas);
-
-
     }
 
     public class ThreadJuego extends Thread{
@@ -311,19 +283,25 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             while(true) {
                 actualizaFisica();
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
-                if (personaje.verificaColision(cactus) || personaje.verificaColision(avion) || personaje.verificaColision(planta) || personaje.verificaColision(planta2)) {
-                    //pa que no siga actualizando los puntos
-                    personaje=null;
+                if (personaje.verificaColision(casper) || personaje.verificaColision(volador)
+                        || personaje.verificaColision(muerte)  || personaje.verificaColision(mosca)) {
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
                     context.startActivity(intent);
+
+                    try {
+                        Thread.sleep(500); // Espera 500 milisegundos para permitir que se actualice el diseño de la actividad GameOver.
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     ((Activity) context).finish();
+                    interrupt();
+                    break;
                 }
             }
-
         }
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -335,15 +313,13 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_D:
-
-                if(disparoActivo==false){
+                if(!disparoActivo){
                     activaDisparo();
-
                 }
                 break;
             case KeyEvent.KEYCODE_SPACE:
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
-                    personaje.setPosY(personaje.getPosY() - 400);
+                   personaje.setPosY(personaje.getPosY() - 400);
                 }
                 break;
         }
@@ -353,18 +329,18 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (motionEvent.getX() > view.getWidth() / 2) {
+                if (motionEvent.getX() > view.getWidth() / (float)2) {
                     personaje.setPosX(personaje.getPosX() + 10);
                 } else {
                     personaje.setPosX(personaje.getPosX() - 10);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (motionEvent.getY() < view.getHeight() / 2) {
+                if (motionEvent.getY() < view.getHeight() / (float)2) {
                     if (personaje.getPosY() >= personaje.getPosInicial()) {
                         personaje.setPosY(personaje.getPosY() - 400);
                     }
-                } else if (motionEvent.getX() > view.getWidth() / 2) {
+                } else if (motionEvent.getX() > view.getWidth() / (float)2) {
                     activaDisparo();
                 }
                 break;
@@ -372,5 +348,10 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         return true;
     }
 
-
+    public void setDisparosRestantes(int disparosRestantes) {
+        this.disparosRestantes = disparosRestantes;
+    }
+    public void setVelocidadJuego(int velocidadJuego) {
+        PERIODO_PROCESO = velocidadJuego;
+    }
 }

@@ -37,10 +37,7 @@ public class Grafico {
     public static final int MAX_VELOCIDAD = 20;
 
     public Grafico(View view, Drawable drawable) {
-
-
         this.view = view;
-
         this.drawable = drawable;
 
         //Permite conseguir la anchura de la imagen mediante la clase del Drawable
@@ -144,7 +141,6 @@ public class Grafico {
     }
     public void salto() {
 
-
         if(posY<posInicial){
             posY += 20;
             rotacion+=5;
@@ -154,10 +150,12 @@ public class Grafico {
 
 
     }
+    public int returnWidth(){
+       return view.getWidth();
+    }
+
     public void rotacionDisparo() {
-
-            angulo += 5;
-
+            angulo += .3;
     }
     public void incrementaPosMain(double factor) {
         //posX += incX * factor;
