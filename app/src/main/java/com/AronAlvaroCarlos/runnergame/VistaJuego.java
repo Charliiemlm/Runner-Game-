@@ -1,5 +1,6 @@
 package com.AronAlvaroCarlos.runnergame;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,16 +18,17 @@ import android.view.View;
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
     private int disparosRestantes=5;
-    private Context context;
+    private final Context context;
     private Grafico personaje, casper,volador,muerte, disparo, mosca; // Gráficos
     // Thread encargado de procesar el juego
-    private ThreadJuego thread = new ThreadJuego();
+    private final ThreadJuego thread = new ThreadJuego();
     // Cada cuanto queremos procesar cambios (ms)
     private static int PERIODO_PROCESO = 55;
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
     boolean disparoActivo=false;
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public VistaJuego(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context=context;
@@ -60,9 +62,9 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         muerte.setIncX(-4);
 
         //Instanciando Mosca
-        drawablemuerte = context.getResources().getDrawable(
+        drawableMosca = context.getResources().getDrawable(
                 R.drawable.mosca);
-        mosca = new Grafico(this, drawablemuerte);
+        mosca = new Grafico(this, drawableMosca);
         //casper.setIncY(4);
         mosca.setIncX(-4);
 
@@ -89,7 +91,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //posicionamos el personaje en el centro de la pantalla
         //cuanto mayor sea más se acerca a la izquierda
-        personaje.setPosX((ancho - personaje.getAncho()) /13);
+        personaje.setPosX((ancho - personaje.getAncho()) / (float)13);
 
         //Cuanta más se acerque al 1 más se acerca abajo
         personaje.setPosY((alto - personaje.getAlto()) /1.1);
@@ -97,21 +99,21 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
 
         //posicionamos el casper en  pantalla
-        casper.setPosX((ancho - casper.getAncho()) /1);
+        casper.setPosX((ancho - casper.getAncho()));
         casper.setPosY((alto - casper.getAlto()) /1.18);
 
         //posicionamos el casper en  pantalla
-        muerte.setPosX((ancho - muerte.getAncho()) /-1);
+        muerte.setPosX((ancho - muerte.getAncho()) /(float)-1);
         muerte.setPosY((alto - muerte.getAlto()) /1.1);
 
 
         //posicionamos el casper en  pantalla
-        mosca.setPosX((ancho - mosca.getAncho()) /-1);
+        mosca.setPosX((ancho - mosca.getAncho()) / (float)-1);
         mosca.setPosY((alto - mosca.getAlto()) /1.1);
 
 
         //posicionamos el volador en  pantalla
-        volador.setPosX((ancho - volador.getAncho()) /-5);
+        volador.setPosX((ancho - volador.getAncho()) / (float)-5);
         volador.setPosY((alto - volador.getAlto()) /1.7);
 
 
@@ -131,7 +133,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         //Para una ejecucion en tiempo real
         //calculamos el factor de movimiento
 
-        double factorMov= (ahora-ultimo_Proceso)/PERIODO_PROCESO;
+        double factorMov= (ahora-ultimo_Proceso)/ (float)PERIODO_PROCESO;
 
         ultimo_Proceso=ahora;//para la proxima vez
 
@@ -221,18 +223,18 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         // Rectangulo con border rojo
         paint.setColor(Color.rgb(255, 0, 0));
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
-                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60,
+                canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
-        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
-                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60,
+                canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
         //Orange but it's not likely to stay this way, better dark??
         paint.setColor(Color.rgb(	255, 69, 0));
         paint.setStyle(Paint.Style.STROKE);
         paint.setShadowLayer(5, 10, 10, 0xff000000);
-        canvas.drawRect(canvas.getWidth() / 1 - 250, canvas.getHeight() / 6 - 60,
-                canvas.getWidth() /2 + 250, canvas.getHeight() / 6 + 60, paint);
+        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60,
+                canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
 
 
         // Hay que dar más detalles aquí, color naranja
@@ -246,16 +248,16 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         paint.setColor(Color.WHITE);
 
         // Player 1 score
-        float x1 = canvas.getWidth() / 1 - 600;
-        float y1 = canvas.getHeight()/7 + 50;
+        float x1 = canvas.getWidth() - 600;
+        float y1 = canvas.getHeight()/ (float)7 + 50;
         canvas.drawText(String.valueOf(player1Score), x1, y1, paint);
-        float x2 = canvas.getWidth() / 1 - 400;
-        float y2 = canvas.getHeight()/7 + 50;
+        float x2 = canvas.getWidth() - 400;
+        float y2 = canvas.getHeight()/(float)7 + 50;
         canvas.drawText(" Pts", x2, y2, paint);
         //canvas.drawPaint(paint);
         // Draw the "Danny" logo
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
-        float logoX = canvas.getWidth() / 2 - logo.getWidth() / 2 +240;
+        float logoX = canvas.getWidth() / (float)2 - logo.getWidth() / (float)2 +240;
         float logoY = 50;
         canvas.drawBitmap(logo, logoX, logoY, null);
     }
@@ -286,6 +288,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
                     context.startActivity(intent);
+
                     try {
                         Thread.sleep(500); // Espera 500 milisegundos para permitir que se actualice el diseño de la actividad GameOver.
                     } catch (InterruptedException e) {
@@ -310,7 +313,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 personaje.setPosX(personaje.getPosX() - 10);
                 break;
             case KeyEvent.KEYCODE_D:
-                if(disparoActivo==false){
+                if(!disparoActivo){
                     activaDisparo();
                 }
                 break;
@@ -326,18 +329,18 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (motionEvent.getX() > view.getWidth() / 2) {
+                if (motionEvent.getX() > view.getWidth() / (float)2) {
                     personaje.setPosX(personaje.getPosX() + 10);
                 } else {
                     personaje.setPosX(personaje.getPosX() - 10);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (motionEvent.getY() < view.getHeight() / 2) {
+                if (motionEvent.getY() < view.getHeight() / (float)2) {
                     if (personaje.getPosY() >= personaje.getPosInicial()) {
                         personaje.setPosY(personaje.getPosY() - 400);
                     }
-                } else if (motionEvent.getX() > view.getWidth() / 2) {
+                } else if (motionEvent.getX() > view.getWidth() / (float)2) {
                     activaDisparo();
                 }
                 break;
