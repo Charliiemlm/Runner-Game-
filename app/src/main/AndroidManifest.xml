@@ -19,7 +19,7 @@
         <activity
             android:name=".GameOver"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
         <activity
