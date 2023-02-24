@@ -4,62 +4,97 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/screen">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <TextView
+        android:id="@+id/preferencias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Preferencias"
-        android:textSize="24sp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        android:layout_gravity="center_horizontal"/>
+        android:textAllCaps="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"/>
 
     <TextView
+        android:id="@+id/dificultad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dificultad:"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
 
     <Spinner
-         android:layout_width="match_parent"
+        android:id="@+id/spinner"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-         android:layout_marginTop="8dp"/>
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:entries="@array/spinner_items"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"/>
 
     <TextView
+        android:id="@+id/disparos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selección de disparos:"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        />
 
     <RadioGroup
          android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        >
 
         <RadioButton
+            android:id="@+id/uno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disparo simple" />
+            android:text="1 Ammo"
+            android:textColor="@color/white"
+            android:paddingRight="20dp"/>
 
         <RadioButton
-             android:layout_width="wrap_content"
+            android:id="@+id/dos"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disparo múltiple"
-            android:checked="true"/>
+            android:text="3 Ammo"
+            android:textColor="@color/white"
+            android:paddingRight="20dp"/>
+        <RadioButton
+            android:id="@+id/tres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 Ammo"
+            android:checked="true"
+            android:textColor="@color/white"
+            android:paddingRight="20dp"/>
 
     </RadioGroup>
 
     <Button
+        android:id="@+id/guardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guardar"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="130dp"
+        android:text="Guardar"
+        android:textColor="@color/black"
+        android:backgroundTint="#FFC000"/>
 
 </LinearLayout>
 </LinearLayout>

@@ -52,21 +52,21 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 R.drawable.casper);
         casper = new Grafico(this, drawableCasper);
         //casper.setIncY(4);
-        casper.setIncX(-4);
+        casper.setIncX(-4 /*(personaje.getMaxVelocidad())*/);
 
         //Instanciando los muerte
         drawablemuerte = context.getResources().getDrawable(
                 R.drawable.muerte);
         muerte = new Grafico(this, drawablemuerte);
         //casper.setIncY(4);
-        muerte.setIncX(-4);
+        muerte.setIncX(-4 /*(personaje.getMaxVelocidad())*/);
 
         //Instanciando Mosca
         drawableMosca = context.getResources().getDrawable(
                 R.drawable.mosca);
         mosca = new Grafico(this, drawableMosca);
         //casper.setIncY(4);
-        mosca.setIncX(-4);
+        mosca.setIncX(-4 /*(personaje.getMaxVelocidad())*/);
 
         //Instanciando el volador
         drawablevolador = context.getResources().getDrawable(
@@ -74,7 +74,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         volador = new Grafico(this, drawablevolador);
         //volador.setIncY(Math.random() * 4 - 2);
-        volador.setIncX(-10);
+        volador.setIncX(-10/*(personaje.getMaxVelocidad())*/);
 
     }
 

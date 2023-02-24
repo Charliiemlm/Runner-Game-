@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity  {
 
         @Override
         public void onClick(View v) {
-            lanzarPreferencias(null);
+            Intent j=new Intent(MainActivity.this, Preferencias.class);
+            startActivity(j);
         }
     });
         bSalir.setOnClickListener(new View.OnClickListener() {
