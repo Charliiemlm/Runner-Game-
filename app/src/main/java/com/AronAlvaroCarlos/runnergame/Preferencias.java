@@ -19,11 +19,13 @@ public class Preferencias extends AppCompatActivity {
     private RadioButton dos;
     private RadioButton tres;
     private int disparos_max;
+    private int nivel;
     private Button guardar;
     private Button volver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        nivel=0;
       setContentView(R.layout.activity_preferencias);
       Dificultad=(TextView) findViewById(R.id.dificultad);
       spinner_array=(Spinner) findViewById(R.id.spinner);
@@ -79,8 +81,17 @@ public class Preferencias extends AppCompatActivity {
 
     }
     public Intent getDisparos_max(){
+        switch (valorSeleccionado){
+            case "Easy":
+                break;
+            case "Medium":
+                break;
+            case "Hell":
+                break;
+        }
         Intent a =new Intent(Preferencias.this, Grafico.class);
         a.putExtra("disparos",disparos_max);
+
         return a;
     }
 
