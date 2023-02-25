@@ -17,6 +17,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.DrawableRes;
+
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
     public int disparosRestantes=5;
@@ -37,7 +39,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
     boolean disparoActivo=false;
-
+    private Drawable explosion;
     @SuppressLint("UseCompatLoadingForDrawables")
     public VistaJuego(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -68,7 +70,6 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         muerte = new Grafico(this, drawablemuerte);
         //casper.setIncY(4);
         muerte.setIncX(-4/*(personaje.getMaxVelocidad())*/);
-
 
         //Instanciando Mosca
         drawableMosca = context.getResources().getDrawable(
@@ -274,6 +275,58 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         float logoY = 50;
         canvas.drawBitmap(logo, logoX, logoY, null);
     }
+    private void shoots(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setTextSize(80);
+        paint.setColor(Color.WHITE);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(3);
+        // Rectangulo con border rojo
+        paint.setColor(Color.	rgb(40, 59, 142));
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)12,
+                canvas.getWidth() /(float)3, canvas.getHeight() / (float)4, paint);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)13,
+                canvas.getWidth() /(float)3, canvas.getHeight() / (float)6 + 60, paint);
+        //Orange but it's not likely to stay this way, better dark??
+        paint.setColor(Color.rgb(	255, 69, 0));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setShadowLayer(5, 10, 10, 0xff000000);
+        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)12,
+                canvas.getWidth() /(float)3, canvas.getHeight() / (float)6 + 60, paint);
+
+
+        // Hay que dar más detalles aquí, color naranja
+      /* paint.setColor(Color.rgb(255, 165, 0));
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);*/
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+
+        // Player 1 score
+        float x1 = canvas.getWidth()/(float)3.5;
+        float y1 = canvas.getHeight()/ (float)5.5;
+        float x2 = canvas.getWidth()/5;
+        float y2 = canvas.getHeight()/(float)5.5;
+        if(disparosRestantes>0){
+            canvas.drawText("Ammo: ", x2, y2, paint);
+            canvas.drawText(String.valueOf(disparosRestantes), x1, y1, paint);
+        }else{
+            canvas.drawText("NO AMMO", x2, y2, paint);
+        }
+        //canvas.drawPaint(paint);
+        // Draw the "shoots" logo
+        Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.disparo);
+        float logoX = canvas.getWidth() / (float)5 - logo.getWidth() / (float)0.5;
+        float logoY = 50;
+        canvas.drawBitmap(logo, logoX, logoY, null);
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -288,6 +341,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         }
         //pintar puntuacion
         drawScoresOnCanvas(canvas);
+        shoots(canvas);
     }
 
     public class ThreadJuego extends Thread{
@@ -298,7 +352,6 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
                 if (personaje.verificaColision(casper) || personaje.verificaColision(volador)
                         || personaje.verificaColision(muerte)  || personaje.verificaColision(mosca)) {
-
                     death.start();
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
