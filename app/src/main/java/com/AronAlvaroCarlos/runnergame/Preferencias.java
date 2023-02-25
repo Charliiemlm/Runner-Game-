@@ -20,6 +20,7 @@ public class Preferencias extends AppCompatActivity {
     private RadioButton tres;
     private int disparos_max;
     private Button guardar;
+    private Button volver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class Preferencias extends AppCompatActivity {
         valorSeleccionado = spinner_array.getSelectedItem().toString();
         guardar=(Button) findViewById(R.id.guardar);
         disparos_max=5;
+        volver=(Button)findViewById(R.id.atrás);
         uno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +67,13 @@ public class Preferencias extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             getDisparos_max();
+            finish();
+            }
+        });
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

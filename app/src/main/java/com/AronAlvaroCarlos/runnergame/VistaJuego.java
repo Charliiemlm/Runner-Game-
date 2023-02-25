@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -18,6 +19,9 @@ import android.view.View;
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
     private int disparosRestantes=5;
+    private MediaPlayer jump;
+    private MediaPlayer energy;
+    private MediaPlayer death;
     private final Context context;
     private Grafico personaje, casper,volador,muerte, disparo, mosca; // Gráficos
     // Thread encargado de procesar el juego
@@ -75,7 +79,9 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         volador = new Grafico(this, drawablevolador);
         //volador.setIncY(Math.random() * 4 - 2);
         volador.setIncX(-10/*(personaje.getMaxVelocidad())*/);
-
+            jump=MediaPlayer.create(context.getApplicationContext(), R.raw.jump2);
+        energy=MediaPlayer.create(context.getApplicationContext(), R.raw.energy);
+        death=MediaPlayer.create(context.getApplicationContext(),R.raw.death);
     }
 
     public VistaJuego(Context context) {
@@ -189,6 +195,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     }
 
     public void activaDisparo(){
+
         //filtro para evitar que se pueda spamear el disparo
         if(disparo.getPosX()>=personaje.getPosX()-500 && disparosRestantes>0){
             disparo.setPosX(personaje.getPosX());
@@ -285,10 +292,11 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
                 if (personaje.verificaColision(casper) || personaje.verificaColision(volador)
                         || personaje.verificaColision(muerte)  || personaje.verificaColision(mosca)) {
+
+                    death.start();
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
                     context.startActivity(intent);
-
                     try {
                         Thread.sleep(500); // Espera 500 milisegundos para permitir que se actualice el diseño de la actividad GameOver.
                     } catch (InterruptedException e) {
@@ -314,12 +322,18 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 break;
             case KeyEvent.KEYCODE_D:
                 if(!disparoActivo){
+                    if(disparosRestantes>0){
+                        energy.start();
+                    }
                     activaDisparo();
                 }
                 break;
             case KeyEvent.KEYCODE_SPACE:
+                jump.start();
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
+
                    personaje.setPosY(personaje.getPosY() - 400);
+
                 }
                 break;
         }
