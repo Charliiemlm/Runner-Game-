@@ -1,10 +1,12 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="17dp">
+    android:padding="17dp"
+    android:background="@drawable/screen"
+    >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -99,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="50dp"
         android:text="Volver"
         android:textColor="@color/black"
         android:backgroundTint="#FFC000"/>
