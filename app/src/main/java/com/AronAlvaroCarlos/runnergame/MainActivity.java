@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -100,7 +101,15 @@ public class MainActivity extends AppCompatActivity  {
         this.finish();
     }
 
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // La pantalla está en modo paisaje
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // La pantalla está en modo retrato
+        }
+    }
 
 
 

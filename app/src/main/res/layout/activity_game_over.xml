@@ -1,59 +1,55 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/over_fondo"
+    android:background="@drawable/game_over_grande"
+    android:orientation="vertical"
     android:padding="16dp">
 
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="102dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-
-
+        <ImageView
+            android:layout_width="94dp"
+            android:layout_height="86dp"
+            android:background="@drawable/yes"
+            android:contentDescription="restart"
+            android:onClick="restart" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-
         <TextView
             android:id="@+id/tvPoints"
             style="@style/TitleTextView"
-            android:layout_width="245dp"
-
+            android:layout_width="193dp"
             android:layout_height="118dp"
             android:text="@string/puntuacion" />
 
         <ImageView
-            android:layout_width="121dp"
-            android:layout_height="114dp"
-            android:background="@drawable/ress"
+            android:layout_width="91dp"
+            android:layout_height="84dp"
+            android:background="@drawable/no"
             android:contentDescription="restart"
-            android:onClick="restart" />
+            android:onClick="exit" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="413dp"
-        android:layout_height="986dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="64dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-
-
+        android:layout_width="match_parent"
+        android:layout_height="684dp"
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="196dp"
-            android:layout_height="187dp"
+            android:layout_width="167dp"
+            android:layout_height="722dp"
             android:contentDescription="perder"
             android:src="@drawable/lost"
             android:textSize="18sp" />
-
     </LinearLayout>
+
 </LinearLayout>

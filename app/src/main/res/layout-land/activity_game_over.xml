@@ -43,7 +43,7 @@
 
         <ImageView
             android:layout_width="124dp"
-            android:layout_height="115dp"
+            android:layout_height="116dp"
             android:background="@drawable/no"
             android:contentDescription="exit2"
             android:onClick="exit" />
