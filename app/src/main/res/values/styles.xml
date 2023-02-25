@@ -1,25 +1,20 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ApphTeme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
 
     </style>
 
     <style name="TitleTextView">
         <item name="android:textSize">50sp</item>
-        <item name="android:gravity">center</item>
-         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/border</item>
+
     </style>
 
-    <style name="ButtonStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background"></item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
 
 
     <!-- Custom font -->
