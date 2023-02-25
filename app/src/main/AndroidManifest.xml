@@ -14,11 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RunnerGame"
         tools:targetApi="31"
-android:screenOrientation="fullSensor"
+        android:screenOrientation="fullSensor"
         >
         <activity
             android:name=".Preferencias"
             android:exported="false"
+            android:screenOrientation="portrait"
              />
         <activity
             android:name=".GameOver"
@@ -31,7 +32,7 @@ android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboardHidden|screenSize"
             android:exported="true"
              android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
