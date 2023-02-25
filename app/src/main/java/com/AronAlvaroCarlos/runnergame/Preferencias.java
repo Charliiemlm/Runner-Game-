@@ -13,13 +13,14 @@ import android.widget.TextView;
 public class Preferencias extends AppCompatActivity {
     private TextView Dificultad;
     private Spinner spinner_array;
+    public Bundle bundle;
     private String valorSeleccionado;
     private TextView disparos;
     private RadioButton uno;
     private RadioButton dos;
     private RadioButton tres;
     private int disparos_max;
-    private int nivel;
+    public int nivel;
     private Button guardar;
     private Button volver;
     @Override
@@ -41,18 +42,14 @@ public class Preferencias extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 disparos_max=1;
-                System.out.println(disparos_max);
                 valorSeleccionado = spinner_array.getSelectedItem().toString();
-                System.out.println(valorSeleccionado);
             }
         });
         dos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 disparos_max=3;
-                System.out.println(disparos_max);
                 valorSeleccionado = spinner_array.getSelectedItem().toString();
-                System.out.println(valorSeleccionado);
 
             }
         });
@@ -60,39 +57,40 @@ public class Preferencias extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 disparos_max=5;
-                System.out.println(disparos_max);
                 valorSeleccionado = spinner_array.getSelectedItem().toString();
-                System.out.println(valorSeleccionado);
             }
         });
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            getDisparos_max();
+                valorSeleccionado = spinner_array.getSelectedItem().toString();
+                switch (valorSeleccionado){
+                    case "Easy":
+                        nivel=0;
+                        break;
+                    case "Medium":
+                        nivel=20;
+                        break;
+                    case "Hell":
+                        nivel=200;
+                        break;
+
+                }
+                System.out.println(disparos_max);
+                VistaJuego vistaJuego=new VistaJuego(Preferencias.this);
+                vistaJuego.setDisparosRestantes(disparos_max);
             finish();
             }
         });
+
         volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
     }
-    public Intent getDisparos_max(){
-        switch (valorSeleccionado){
-            case "Easy":
-                break;
-            case "Medium":
-                break;
-            case "Hell":
-                break;
-        }
-        Intent a =new Intent(Preferencias.this, Grafico.class);
-        a.putExtra("disparos",disparos_max);
-
-        return a;
+   public void getDisparos_max(int nivel){
     }
 
 }

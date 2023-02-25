@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -18,7 +19,12 @@ import android.view.View;
 
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
-    private int disparosRestantes=5;
+    public int disparosRestantes=5;
+
+    public int getDisparosRestantes() {
+        return disparosRestantes;
+    }
+
     private MediaPlayer jump;
     private MediaPlayer energy;
     private MediaPlayer death;
@@ -37,7 +43,6 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         super(context, attrs);
         this.context=context;
         setOnTouchListener(this);
-
         Drawable drawablePersonaje, drawableCasper,
                 drawablevolador , drawablemuerte, drawableDisparo , drawableMosca;
 
@@ -56,22 +61,21 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 R.drawable.casper);
         casper = new Grafico(this, drawableCasper);
         //casper.setIncY(4);
-        casper.setIncX(-4 /*(personaje.getMaxVelocidad())*/);
-
+        casper.setIncX(-4/*(personaje.getMaxVelocidad())*/);
         //Instanciando los muerte
         drawablemuerte = context.getResources().getDrawable(
                 R.drawable.muerte);
         muerte = new Grafico(this, drawablemuerte);
         //casper.setIncY(4);
-        muerte.setIncX(-4 /*(personaje.getMaxVelocidad())*/);
+        muerte.setIncX(-4/*(personaje.getMaxVelocidad())*/);
+
 
         //Instanciando Mosca
         drawableMosca = context.getResources().getDrawable(
-                R.drawable.mosca);
+                R.drawable.eyeball_sprite);
         mosca = new Grafico(this, drawableMosca);
         //casper.setIncY(4);
-        mosca.setIncX(-4 /*(personaje.getMaxVelocidad())*/);
-
+        mosca.setIncX(-5 /*(personaje.getMaxVelocidad())*/);
         //Instanciando el volador
         drawablevolador = context.getResources().getDrawable(
                 R.drawable.mosca);
@@ -87,7 +91,9 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     public VistaJuego(Context context) {
         super(context);
         this.context=context;
+
     }
+
 
     @Override
     protected void onSizeChanged(int ancho, int alto, int ancho_anter,
@@ -115,7 +121,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //posicionamos el casper en  pantalla
         mosca.setPosX((ancho - mosca.getAncho()) / (float)-1);
-        mosca.setPosY((alto - mosca.getAlto()) /1.1);
+        mosca.setPosY((alto - mosca.getAlto()) /1.3);
 
 
         //posicionamos el volador en  pantalla
@@ -323,6 +329,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
             case KeyEvent.KEYCODE_D:
                 if(!disparoActivo){
                     if(disparosRestantes>0){
+                        System.out.println(disparosRestantes);
                         energy.start();
                     }
                     activaDisparo();
