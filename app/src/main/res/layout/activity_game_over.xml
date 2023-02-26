@@ -1,22 +1,20 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_nuevo"
+    android:background="@drawable/game_over_grande"
+    android:orientation="vertical"
     android:padding="16dp">
 
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="90dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-
-        <ImageButton
-            android:layout_width="89dp"
-            android:layout_height="91dp"
-            android:background="@drawable/res_azul"
+        <ImageView
+            android:layout_width="94dp"
+            android:layout_height="86dp"
+            android:background="@drawable/yes"
             android:contentDescription="restart"
             android:onClick="restart" />
 
@@ -25,41 +23,33 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <ImageButton
-            android:layout_width="89dp"
-            android:layout_height="91dp"
-            android:background="@drawable/cerrar"
-            android:contentDescription="exit"
+        <TextView
+            android:id="@+id/tvPoints"
+            style="@style/TitleTextView"
+            android:layout_width="193dp"
+            android:layout_height="118dp"
+            android:text="@string/puntuacion" />
+
+        <ImageView
+            android:layout_width="91dp"
+            android:layout_height="84dp"
+            android:background="@drawable/no"
+            android:contentDescription="restart"
             android:onClick="exit" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="1112dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="64dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/tvPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Points: "
-            android:textSize="40sp"
-            android:padding="10dp"
-            android:background="#FFC000"
-            />
+        android:layout_width="match_parent"
+        android:layout_height="684dp"
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/points"
-
-            android:textColor="#330022"
+            android:layout_width="167dp"
+            android:layout_height="722dp"
+            android:contentDescription="perder"
+            android:src="@drawable/lost"
             android:textSize="18sp" />
-
     </LinearLayout>
+
 </LinearLayout>

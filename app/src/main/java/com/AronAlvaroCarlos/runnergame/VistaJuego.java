@@ -10,14 +10,26 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.DrawableRes;
+
 public class VistaJuego extends View  implements View.OnTouchListener{
     private int player1Score = 0;
-    private int disparosRestantes=5;
+    public int disparosRestantes=5;
+
+    public int getDisparosRestantes() {
+        return disparosRestantes;
+    }
+
+    private MediaPlayer jump;
+    private MediaPlayer energy;
+    private MediaPlayer death;
     private final Context context;
     private Grafico personaje, casper,volador,muerte, disparo, mosca; // Gráficos
     // Thread encargado de procesar el juego
@@ -27,13 +39,12 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
     boolean disparoActivo=false;
-
+    private Drawable explosion;
     @SuppressLint("UseCompatLoadingForDrawables")
     public VistaJuego(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context=context;
         setOnTouchListener(this);
-
         Drawable drawablePersonaje, drawableCasper,
                 drawablevolador , drawablemuerte, drawableDisparo , drawableMosca;
 
@@ -52,36 +63,38 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 R.drawable.casper);
         casper = new Grafico(this, drawableCasper);
         //casper.setIncY(4);
-        casper.setIncX(-4);
-
+        casper.setIncX(-4/*(personaje.getMaxVelocidad())*/);
         //Instanciando los muerte
         drawablemuerte = context.getResources().getDrawable(
                 R.drawable.muerte);
         muerte = new Grafico(this, drawablemuerte);
         //casper.setIncY(4);
-        muerte.setIncX(-4);
+        muerte.setIncX(-4/*(personaje.getMaxVelocidad())*/);
 
         //Instanciando Mosca
         drawableMosca = context.getResources().getDrawable(
-                R.drawable.mosca);
+                R.drawable.eyeball_sprite);
         mosca = new Grafico(this, drawableMosca);
         //casper.setIncY(4);
-        mosca.setIncX(-4);
-
+        mosca.setIncX(-5 /*(personaje.getMaxVelocidad())*/);
         //Instanciando el volador
         drawablevolador = context.getResources().getDrawable(
                 R.drawable.mosca);
 
         volador = new Grafico(this, drawablevolador);
         //volador.setIncY(Math.random() * 4 - 2);
-        volador.setIncX(-10);
-
+        volador.setIncX(-10/*(personaje.getMaxVelocidad())*/);
+            jump=MediaPlayer.create(context.getApplicationContext(), R.raw.jump2);
+        energy=MediaPlayer.create(context.getApplicationContext(), R.raw.energy);
+        death=MediaPlayer.create(context.getApplicationContext(),R.raw.death);
     }
 
     public VistaJuego(Context context) {
         super(context);
         this.context=context;
+
     }
+
 
     @Override
     protected void onSizeChanged(int ancho, int alto, int ancho_anter,
@@ -109,7 +122,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
 
         //posicionamos el casper en  pantalla
         mosca.setPosX((ancho - mosca.getAncho()) / (float)-1);
-        mosca.setPosY((alto - mosca.getAlto()) /1.1);
+        mosca.setPosY((alto - mosca.getAlto()) /1.3);
 
 
         //posicionamos el volador en  pantalla
@@ -189,6 +202,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     }
 
     public void activaDisparo(){
+
         //filtro para evitar que se pueda spamear el disparo
         if(disparo.getPosX()>=personaje.getPosX()-500 && disparosRestantes>0){
             disparo.setPosX(personaje.getPosX());
@@ -261,6 +275,58 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         float logoY = 50;
         canvas.drawBitmap(logo, logoX, logoY, null);
     }
+    private void shoots(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setTextSize(80);
+        paint.setColor(Color.WHITE);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(3);
+        // Rectangulo con border rojo
+        paint.setColor(Color.	rgb(40, 59, 142));
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)12,
+                canvas.getWidth() /(float)3, canvas.getHeight() / (float)4, paint);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)13,
+                canvas.getWidth() /(float)3, canvas.getHeight() / (float)6 + 60, paint);
+        //Orange but it's not likely to stay this way, better dark??
+        paint.setColor(Color.rgb(	255, 69, 0));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setShadowLayer(5, 10, 10, 0xff000000);
+        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)12,
+                canvas.getWidth() /(float)3, canvas.getHeight() / (float)6 + 60, paint);
+
+
+        // Hay que dar más detalles aquí, color naranja
+      /* paint.setColor(Color.rgb(255, 165, 0));
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
+       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
+               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);*/
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+
+        // Player 1 score
+        float x1 = canvas.getWidth()/(float)3.5;
+        float y1 = canvas.getHeight()/ (float)5.5;
+        float x2 = canvas.getWidth()/5;
+        float y2 = canvas.getHeight()/(float)5.5;
+        if(disparosRestantes>0){
+            canvas.drawText("Ammo: ", x2, y2, paint);
+            canvas.drawText(String.valueOf(disparosRestantes), x1, y1, paint);
+        }else{
+            canvas.drawText("NO AMMO", x2, y2, paint);
+        }
+        //canvas.drawPaint(paint);
+        // Draw the "shoots" logo
+        Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.disparo);
+        float logoX = canvas.getWidth() / (float)5 - logo.getWidth() / (float)0.5;
+        float logoY = 50;
+        canvas.drawBitmap(logo, logoX, logoY, null);
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -275,6 +341,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         }
         //pintar puntuacion
         drawScoresOnCanvas(canvas);
+        shoots(canvas);
     }
 
     public class ThreadJuego extends Thread{
@@ -285,10 +352,10 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 // Utilice un manejador para llamar a updatePoints cada milisegundo
                 if (personaje.verificaColision(casper) || personaje.verificaColision(volador)
                         || personaje.verificaColision(muerte)  || personaje.verificaColision(mosca)) {
+                    death.start();
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("points", player1Score);
                     context.startActivity(intent);
-
                     try {
                         Thread.sleep(500); // Espera 500 milisegundos para permitir que se actualice el diseño de la actividad GameOver.
                     } catch (InterruptedException e) {
@@ -314,12 +381,19 @@ public class VistaJuego extends View  implements View.OnTouchListener{
                 break;
             case KeyEvent.KEYCODE_D:
                 if(!disparoActivo){
+                    if(disparosRestantes>0){
+                        System.out.println(disparosRestantes);
+                        energy.start();
+                    }
                     activaDisparo();
                 }
                 break;
             case KeyEvent.KEYCODE_SPACE:
+                jump.start();
                 if(personaje.getPosY()>=personaje.getPosInicial()) {
+
                    personaje.setPosY(personaje.getPosY() - 400);
+
                 }
                 break;
         }

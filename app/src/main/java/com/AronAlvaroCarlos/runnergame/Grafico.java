@@ -2,6 +2,7 @@ package com.AronAlvaroCarlos.runnergame;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.View;
 import java.lang.Math;
 
@@ -22,8 +23,9 @@ public class Grafico {
 
     private View view;
 
-    // Para determinar el espacio a borrar (view.ivalidate)???
+// Para determinar el espacio a borrar (view.ivalidate)???
 
+    private Bundle bundle;
     private double posInicial;
 
     public double getPosInicial() {
@@ -34,7 +36,8 @@ public class Grafico {
         this.posInicial = posInicial;
     }
 
-    public static final int MAX_VELOCIDAD = 20;
+    public final int MAX_VELOCIDAD = 20;
+
 
     public Grafico(View view, Drawable drawable) {
         this.view = view;
@@ -47,14 +50,9 @@ public class Grafico {
 
         //
         radioColision = (alto + ancho) / 22;
-
     }
-    public Grafico(){
 
-    }
-    public void dibujaPuntos(Canvas canvas){
 
-    }
     public void dibujaGrafico(Canvas canvas) {
 
         //Posicionamiento de la imagen
@@ -283,8 +281,9 @@ public class Grafico {
         this.view = view;
     }
 
-    public static int getMaxVelocidad() {
+    public int getMaxVelocidad() {
         return MAX_VELOCIDAD;
     }
+
 
 }
