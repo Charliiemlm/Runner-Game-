@@ -431,10 +431,10 @@ float  lastTouchX =0;
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
                     if (deltaX > 0) {
                         // Movimiento hacia la derecha
-                        personaje.setPosX(personaje.getPosX() + 10);
+                        personaje.setPosX(personaje.getPosX() + 5);
                     } else {
                         // Movimiento hacia la izquierda
-                        personaje.setPosX(personaje.getPosX() - 10);
+                        personaje.setPosX(personaje.getPosX() - 5);
                     }
                 }
                 break;

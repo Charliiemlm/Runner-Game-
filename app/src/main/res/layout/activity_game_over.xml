@@ -6,48 +6,52 @@
     android:padding="16dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="390dp"
+        android:layout_height="96dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="94dp"
-            android:layout_height="86dp"
-            android:background="@drawable/yes"
-            android:contentDescription="restart"
-            android:onClick="restart" />
+            android:id="@+id/imageRestart"
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_width="91dp"
+            android:layout_height="66dp"
+            android:background="@drawable/yes"
+            android:contentDescription="@string/restart" />
+
 
         <TextView
             android:id="@+id/tvPoints"
             style="@style/TitleTextView"
-            android:layout_width="193dp"
-            android:layout_height="118dp"
+            android:layout_width="198dp"
+            android:layout_height="94dp"
             android:text="@string/puntuacion" />
 
+
         <ImageView
-            android:layout_width="91dp"
-            android:layout_height="84dp"
+            android:id="@+id/imageApagar"
+
+            android:layout_width="73dp"
+            android:layout_height="71dp"
             android:background="@drawable/no"
-            android:contentDescription="restart"
-            android:onClick="exit" />
+            android:contentDescription="@string/restart" />
+        <View
+            android:layout_width="54dp"
+            android:layout_height="14dp"
+            android:layout_weight="1" />
+
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="398dp"
         android:layout_height="684dp"
         android:gravity="center">
 
         <ImageView
-            android:layout_width="167dp"
+            android:layout_width="155dp"
             android:layout_height="722dp"
-            android:contentDescription="perder"
+            android:contentDescription="@string/image_perder"
             android:src="@drawable/lost"
             android:textSize="18sp" />
     </LinearLayout>

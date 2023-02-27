@@ -2,6 +2,7 @@ package com.AronAlvaroCarlos.runnergame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -18,37 +19,49 @@ import android.content.Intent;
 
 public class GameOver extends AppCompatActivity {
 
-    TextView tvPoints;
-    ImageView ivNewHighest;
+    private TextView tvPoints;
+     private ImageView imageRestart;
+    private ImageView imageApagar;
 
-    private Context context;
-    private MediaPlayer musica_fondo_over;
+     private MediaPlayer musica_fondo_over;
 
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
-        //ivNewHighest = findViewById(R.id.ivNewHeighest);
+         imageRestart = findViewById(R.id.imageRestart);
+        imageApagar= findViewById(R.id.imageApagar);
+
         int points = getIntent().getExtras().getInt("points");
         tvPoints = findViewById(R.id.tvPoints);
-        tvPoints.setText("" + points);
+        tvPoints.setText( points +"" );
         musica_fondo_over=MediaPlayer.create(getApplicationContext(),R.raw.final_screen);
         musica_fondo_over.start();
 
-        /* if (points == 240) {
-            ivNewHighest.setVisibility(View.VISIBLE);
-        }*/
+
+
+        imageRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GameOver.this, Juego.class);
+                startActivity(intent);
+                musica_fondo_over.stop();
+                finish();
+            }
+        });
+        imageApagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                musica_fondo_over.stop();
+                finish();
+            }
+        });
     }
 
-    public void restart(View view) {
-        Intent intent = new Intent(GameOver.this, Juego.class);
-        startActivity(intent);
-        musica_fondo_over.stop();
-        finish();
-    }
 
-    public void exit(View view) {
-        musica_fondo_over.stop();
-        finish();
-    }
+
+
+
+
 }
 

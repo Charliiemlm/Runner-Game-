@@ -8,6 +8,10 @@
     <string name="Preferencias"> Preferencias </string>
     <string name="puntuacion"> puntos </string>
     <string name="restart"> restart </string>
+    <string name="apagar"> apagar </string>
+    <string name="image_perder"> perder
+ </string>
+
     <string-array name="spinner_items">
         <item>Easy</item>
         <item>Medium</item>

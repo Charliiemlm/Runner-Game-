@@ -9,5 +9,9 @@
     <string name="Preferencias"> preferences </string>
     <string name="puntuacion"> points </string>
     <string name="restart"> restart </string>
+    <string name="apagar"> to turn off
+ </string>
+    <string name="image_perder"> lose
+ </string>
 
     </resources>
