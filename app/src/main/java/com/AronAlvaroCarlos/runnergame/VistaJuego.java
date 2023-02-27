@@ -11,13 +11,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.DrawableRes;
 
 public class VistaJuego extends View  {
     private int player1Score = 0;
@@ -32,7 +29,7 @@ public class VistaJuego extends View  {
     // Thread encargado de procesar el juego
     private final ThreadJuego thread = new ThreadJuego();
     // Cada cuanto queremos procesar cambios (ms)
-    private static int PERIODO_PROCESO = 55;
+    private static final int PERIODO_PROCESO = 55;
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
     boolean disparoActivo=false;
@@ -347,8 +344,8 @@ public class VistaJuego extends View  {
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                if(personaje.getPosX() < -personaje.getAncho() / 2){
-                    personaje.setPosX(personaje.getAncho()/2);
+                if(personaje.getPosX() < -personaje.getAncho() / (float)2){
+                    personaje.setPosX(personaje.getAncho()/(float)2);
                 }else{
                     personaje.setPosX(personaje.getPosX() - 10);
                 }
