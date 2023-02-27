@@ -28,7 +28,7 @@ public class GameOver extends AppCompatActivity {
 
         int points = getIntent().getExtras().getInt("points");
         tvPoints = findViewById(R.id.tvPoints);
-        tvPoints.setText( points);
+        tvPoints.setText( points +"");
         musica_fondo_over=MediaPlayer.create(getApplicationContext(),R.raw.final_screen);
         musica_fondo_over.start();
 
