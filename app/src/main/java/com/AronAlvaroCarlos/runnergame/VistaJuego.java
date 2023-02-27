@@ -19,7 +19,7 @@ import android.view.View;
 
 import androidx.annotation.DrawableRes;
 
-public class VistaJuego extends View  implements View.OnTouchListener{
+public class VistaJuego extends View  {
     private int player1Score = 0;
     public int disparosRestantes=5;
 
@@ -44,7 +44,7 @@ public class VistaJuego extends View  implements View.OnTouchListener{
     public VistaJuego(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context=context;
-        setOnTouchListener(this);
+
         Drawable drawablePersonaje, drawableCasper,
                 drawablevolador , drawablemuerte, drawableDisparo , drawableMosca;
 
@@ -399,33 +399,10 @@ public class VistaJuego extends View  implements View.OnTouchListener{
         }
         return super.onKeyDown(keyCode, event);
     }
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (motionEvent.getX() > view.getWidth() / (float)2) {
-                    personaje.setPosX(personaje.getPosX() + 10);
-                } else {
-                    personaje.setPosX(personaje.getPosX() - 10);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (motionEvent.getY() < view.getHeight() / (float)2) {
-                    if (personaje.getPosY() >= personaje.getPosInicial()) {
-                        personaje.setPosY(personaje.getPosY() - 400);
-                    }
-                } else if (motionEvent.getX() > view.getWidth() / (float)2) {
-                    activaDisparo();
-                }
-                break;
-        }
-        return true;
-    }
+
+
 
     public void setDisparosRestantes(int disparosRestantes) {
         this.disparosRestantes = disparosRestantes;
-    }
-    public void setVelocidadJuego(int velocidadJuego) {
-        PERIODO_PROCESO = velocidadJuego;
     }
 }
