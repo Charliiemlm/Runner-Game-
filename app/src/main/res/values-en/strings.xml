@@ -4,8 +4,8 @@
     <string name="Puntuaciones">scores</string>
     <string name="Salir">Exit </string>
     <string name="Jugar">Play</string>
-    <string name="tituloAplicacion">RunnerGame</string>
-    <string name="app_name">RunnerGame</string>
+    <string name="tituloAplicacion">DanTheRunner</string>
+    <string name="app_name">DanTheRunner</string>
     <string name="Preferencias"> preferences </string>
     <string name="puntuacion"> points </string>
     <string name="restart"> restart </string>
