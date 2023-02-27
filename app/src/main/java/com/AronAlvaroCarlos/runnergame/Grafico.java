@@ -2,7 +2,6 @@ package com.AronAlvaroCarlos.runnergame;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.View;
 import java.lang.Math;
 
@@ -15,17 +14,17 @@ public class Grafico {
 
     private int angulo, rotacion;// Ángulo y velocidad rotación
 
-    private int ancho, alto; // Dimensiones de la imagen
+    final int ancho, alto; // Dimensiones de la imagen
 
-    private int radioColision; // Para determinar colisión
+    final int radioColision; // Para determinar colisión
 
     // Donde dibujamos el gráfico (usada en view.ivalidate)
 
-    private View view;
+    final View view;
 
 // Para determinar el espacio a borrar (view.ivalidate)???
 
-    private Bundle bundle;
+
     private double posInicial;
 
     public double getPosInicial() {
@@ -84,26 +83,11 @@ public class Grafico {
         int numeroAleatorio = (int) (Math.random()*1000+0);
         // Si salimos de la pantalla, corregimos posición
 
-        if (posX < -ancho / 2) {
+        if (posX < -(float)ancho / 2) {
             posX = view.getWidth()+ numeroAleatorio;
         }
 
-        /*if (posX > view.getWidth() - ancho / 2) {
-            posX = -ancho / 2;
-
-        }*/
-
         posY += incY * factor;
-
-        /*if (posY < -alto / 2) {
-            posY = view.getHeight() - alto / 2;
-        }
-
-        if (posY > view.getHeight() - alto / 2) {
-            posY = -alto / 2;
-        }*/
-
-
 
        angulo += rotacion * factor; // Actualizamos ángulo
 
@@ -113,33 +97,21 @@ public class Grafico {
         int numeroAleatorio = (int) (Math.random()*5000+0);
         // Si salimos de la pantalla, corregimos posición
 
-        if (posX < -ancho / 2) {
+        if (posX < (float)-ancho / 2) {
             posX = view.getWidth()+ numeroAleatorio;
         }
 
-        /*if (posX > view.getWidth() - ancho / 2) {
-            posX = -ancho / 2;
 
-        }*/
 
         posY += incY * factor;
 
-        /*if (posY < -alto / 2) {
-            posY = view.getHeight() - alto / 2;
-        }
-
-        if (posY > view.getHeight() - alto / 2) {
-            posY = -alto / 2;
-        }*/
 
 
 
         angulo += rotacion * factor; // Actualizamos ángulo
 
     }
-    public void setbounds(){
 
-    }
     public void salto() {
 
         if(posY<posInicial){
@@ -158,30 +130,7 @@ public class Grafico {
     public void rotacionDisparo() {
             angulo += .3;
     }
-    public void incrementaPosMain(double factor) {
-        //posX += incX * factor;
-        // Si salimos de la pantalla, corregimos posición
 
-        /*if(posX < -ancho / 2) {
-            posX = view.getWidth() - ancho /2;
-        }*/
-        if (posX > view.getWidth()/2) {
-            posX = view.getWidth()/2;
-
-        }
-
-        posY += incY * factor;
-
-        /*if (posY < -alto / 2) {
-            posY = view.getHeight() - alto / 2;
-        }
-
-        if (posY > view.getHeight() - alto / 2) {
-            posY = -alto / 2;
-        }*/
-
-
-    }
 
 
     public double distancia(Grafico g) {
@@ -220,73 +169,33 @@ public class Grafico {
         this.posY = posY;
     }
 
-    public double getIncX() {
-        return incX;
-    }
 
     public void setIncX(double incX) {
         this.incX = incX;
     }
 
-    public double getIncY() {
-        return incY;
-    }
 
-    public void setIncY(double incY) {
-        this.incY = incY;
-    }
 
-    public int getAngulo() {
-        return angulo;
-    }
 
-    public void setAngulo(int angulo) {
-        this.angulo = angulo;
-    }
 
-    public int getRotacion() {
-        return rotacion;
-    }
-
-    public void setRotacion(int rotacion) {
-        this.rotacion = rotacion;
-    }
 
     public int getAncho() {
         return ancho;
     }
 
-    public void setAncho(int ancho) {
-        this.ancho = ancho;
-    }
+
 
     public int getAlto() {
         return alto;
     }
 
-    public void setAlto(int alto) {
-        this.alto = alto;
-    }
 
-    public int getRadioColision() {
-        return radioColision;
-    }
 
-    public void setRadioColision(int radioColision) {
-        this.radioColision = radioColision;
-    }
 
-    public View getView() {
-        return view;
-    }
 
-    public void setView(View view) {
-        this.view = view;
-    }
 
-    public int getMaxVelocidad() {
-        return MAX_VELOCIDAD;
-    }
+
+
 
 
 }

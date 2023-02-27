@@ -4,27 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity  {
 
     private MediaPlayer musica_fondo;
 
-    private Button bPreferencias;
-    private Button bJuego;
+     Button bPreferencias;
+     Button bJuego;
 
-    private Button bSalir;
+     Button bSalir;
 
 
     @SuppressLint("MissingInflatedId")
@@ -78,15 +72,6 @@ public class MainActivity extends AppCompatActivity  {
         this.finish();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // La pantalla está en modo paisaje
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // La pantalla está en modo retrato
-        }
-    }
 
 
 
