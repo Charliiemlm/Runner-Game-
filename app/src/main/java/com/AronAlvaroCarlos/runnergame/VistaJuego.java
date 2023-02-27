@@ -399,6 +399,66 @@ public class VistaJuego extends View  {
         }
         return super.onKeyDown(keyCode, event);
     }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getActionMasked();
+float  lastTouchX =0;
+        float  lastTouchY=0;
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                // Se ha tocado la pantalla
+                lastTouchX = event.getX();
+                lastTouchY = event.getY();
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                // Se está moviendo el dedo por la pantalla
+                float deltaX = event.getX() - lastTouchX;
+                lastTouchX = event.getX();
+                float deltaY = event.getY() - lastTouchY;
+                lastTouchY = event.getY();
+
+                // Movimiento horizontal
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (deltaX > 0) {
+                        // Movimiento hacia la derecha
+                        personaje.setPosX(personaje.getPosX() + 10);
+                    } else {
+                        // Movimiento hacia la izquierda
+                        personaje.setPosX(personaje.getPosX() - 10);
+                    }
+                }
+                break;
+
+            case MotionEvent.ACTION_UP:
+                // Se ha levantado el dedo de la pantalla
+                if (event.getY() < getHeight() / 4) {
+                    // Tocado en la parte superior de la pantalla (botón de disparo)
+                    if (!disparoActivo) {
+                        if (disparosRestantes > 0) {
+                            System.out.println(disparosRestantes);
+                            energy.start();
+                        }
+                        activaDisparo();
+                    }
+                } else {
+                    // Tocado en otra parte de la pantalla (salto)
+                    jump.start();
+                    if (personaje.getPosY() >= personaje.getPosInicial()) {
+                        personaje.setPosY(personaje.getPosY() - 400);
+                    }
+                }
+                break;
+
+            default:
+                return super.onTouchEvent(event);
+        }
+
+        return true;
+    }
+
+
 
 
 
