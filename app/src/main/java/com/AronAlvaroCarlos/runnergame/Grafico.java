@@ -137,6 +137,9 @@ public class Grafico {
         angulo += rotacion * factor; // Actualizamos ángulo
 
     }
+    public void setbounds(){
+
+    }
     public void salto() {
 
         if(posY<posInicial){

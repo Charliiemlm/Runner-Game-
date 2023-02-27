@@ -374,10 +374,18 @@ public class VistaJuego extends View  {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                personaje.setPosX(personaje.getPosX() + 10);
+                if (personaje.getAncho() < personaje.getPosX()/5) {
+                    personaje.setPosX(personaje.getAncho()*5);
+                }else{
+                    personaje.setPosX(personaje.getPosX() + 10);
+                }
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                personaje.setPosX(personaje.getPosX() - 10);
+                if(personaje.getPosX() < -personaje.getAncho() / 2){
+                    personaje.setPosX(personaje.getAncho()/2);
+                }else{
+                    personaje.setPosX(personaje.getPosX() - 10);
+                }
                 break;
             case KeyEvent.KEYCODE_D:
                 if(!disparoActivo){
