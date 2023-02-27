@@ -23,9 +23,6 @@ public class VistaJuego extends View  {
     private int player1Score = 0;
     public int disparosRestantes=5;
 
-    public int getDisparosRestantes() {
-        return disparosRestantes;
-    }
 
     private MediaPlayer jump;
     private MediaPlayer energy;
@@ -39,7 +36,7 @@ public class VistaJuego extends View  {
     // Cuando se realizó el último proceso
     private long ultimo_Proceso = 0;
     boolean disparoActivo=false;
-    private Drawable explosion;
+
     @SuppressLint("UseCompatLoadingForDrawables")
     public VistaJuego(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,29 +59,29 @@ public class VistaJuego extends View  {
         drawableCasper = context.getResources().getDrawable(
                 R.drawable.casper);
         casper = new Grafico(this, drawableCasper);
-        //casper.setIncY(4);
         casper.setIncX(-4/*(personaje.getMaxVelocidad())*/);
+
         //Instanciando los muerte
         drawablemuerte = context.getResources().getDrawable(
                 R.drawable.muerte);
         muerte = new Grafico(this, drawablemuerte);
-        //casper.setIncY(4);
         muerte.setIncX(-4/*(personaje.getMaxVelocidad())*/);
 
         //Instanciando Mosca
         drawableMosca = context.getResources().getDrawable(
                 R.drawable.eyeball_sprite);
         mosca = new Grafico(this, drawableMosca);
-        //casper.setIncY(4);
         mosca.setIncX(-5 /*(personaje.getMaxVelocidad())*/);
+
         //Instanciando el volador
         drawablevolador = context.getResources().getDrawable(
                 R.drawable.mosca);
-
         volador = new Grafico(this, drawablevolador);
-        //volador.setIncY(Math.random() * 4 - 2);
         volador.setIncX(-10/*(personaje.getMaxVelocidad())*/);
-            jump=MediaPlayer.create(context.getApplicationContext(), R.raw.jump2);
+
+
+        //sonidos
+        jump=MediaPlayer.create(context.getApplicationContext(), R.raw.jump2);
         energy=MediaPlayer.create(context.getApplicationContext(), R.raw.energy);
         death=MediaPlayer.create(context.getApplicationContext(),R.raw.death);
     }
@@ -198,7 +195,7 @@ public class VistaJuego extends View  {
 
 
          //sumamos puntuacion aqui ya que se se ejecuta continuamente
-        player1Score ++;
+           player1Score ++;
     }
 
     public void activaDisparo(){
@@ -212,21 +209,7 @@ public class VistaJuego extends View  {
         }
 
     }
-    /* private void drawScoresOnCanvas(Canvas canvas) {
-         Paint paint = new Paint();
-         paint.setTextSize(40);
-         paint.setColor(Color.WHITE);
-         paint.setTextAlign(Paint.Align.CENTER);
 
-         // Esto es pa dibujar al la tabla
-         float x1 = canvas.getWidth() / 4;
-         float y1 = canvas.getHeight()/6;
-         canvas.drawText(player1Score, x1, y1, paint);
-         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
-         float logoX = canvas.getWidth() / 6 - logo.getWidth() / 2;
-         float logoY = 0;
-         canvas.drawBitmap(logo, logoX, logoY, null);
-     }*/
     private void drawScoresOnCanvas(Canvas canvas) {
         Paint paint = new Paint();
         paint.setTextSize(80);
@@ -247,16 +230,8 @@ public class VistaJuego extends View  {
         paint.setColor(Color.rgb(	255, 69, 0));
         paint.setStyle(Paint.Style.STROKE);
         paint.setShadowLayer(5, 10, 10, 0xff000000);
-        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60,
-                canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
+        canvas.drawRect(canvas.getWidth() - 250, canvas.getHeight() / (float)6 - 60, canvas.getWidth() /(float)2 + 250, canvas.getHeight() / (float)6 + 60, paint);
 
-
-        // Hay que dar más detalles aquí, color naranja
-      /* paint.setColor(Color.rgb(255, 165, 0));
-       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
-               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
-       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
-               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);*/
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
@@ -268,7 +243,7 @@ public class VistaJuego extends View  {
         float x2 = canvas.getWidth() - 400;
         float y2 = canvas.getHeight()/(float)7 + 50;
         canvas.drawText(" Pts", x2, y2, paint);
-        //canvas.drawPaint(paint);
+
         // Draw the "Danny" logo
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.danny2);
         float logoX = canvas.getWidth() / (float)2 - logo.getWidth() / (float)2 +240;
@@ -297,14 +272,6 @@ public class VistaJuego extends View  {
         paint.setShadowLayer(5, 10, 10, 0xff000000);
         canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)12,
                 canvas.getWidth() /(float)3, canvas.getHeight() / (float)6 + 60, paint);
-
-
-        // Hay que dar más detalles aquí, color naranja
-      /* paint.setColor(Color.rgb(255, 165, 0));
-       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 - 30,
-               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 - 30, paint);
-       canvas.drawLine(canvas.getWidth() / 4 - 75, canvas.getHeight() / 6 + 30,
-               canvas.getWidth() * 3 / 4 + 75, canvas.getHeight() / 6 + 30, paint);*/
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
@@ -410,7 +377,7 @@ public class VistaJuego extends View  {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
-float  lastTouchX =0;
+        float  lastTouchX =0;
         float  lastTouchY=0;
 
         switch (action) {
@@ -468,7 +435,9 @@ float  lastTouchX =0;
 
 
 
-
+    public int getDisparosRestantes() {
+        return disparosRestantes;
+    }
 
     public void setDisparosRestantes(int disparosRestantes) {
         this.disparosRestantes = disparosRestantes;
