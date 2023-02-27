@@ -3,19 +3,13 @@ package com.AronAlvaroCarlos.runnergame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
+
 
 public class GameOver extends AppCompatActivity {
 
@@ -34,7 +28,7 @@ public class GameOver extends AppCompatActivity {
 
         int points = getIntent().getExtras().getInt("points");
         tvPoints = findViewById(R.id.tvPoints);
-        tvPoints.setText( points +"" );
+        tvPoints.setText( points);
         musica_fondo_over=MediaPlayer.create(getApplicationContext(),R.raw.final_screen);
         musica_fondo_over.start();
 

@@ -74,7 +74,7 @@
         <ImageView
             android:layout_width="196dp"
             android:layout_height="205dp"
-            android:contentDescription="perder"
+            android:contentDescription="@string/image_perder"
             android:src="@drawable/dan"
             android:textSize="18sp" />
 
