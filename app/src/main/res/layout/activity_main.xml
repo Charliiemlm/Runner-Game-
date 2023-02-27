@@ -33,40 +33,35 @@
         android:layout_marginTop="80dp"
         android:id="@+id/bt_jugar"
         android:layout_width="240dp"
-        android:textSize="25dp"
         android:backgroundTint="#FFC000"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-condensed"
         android:textAllCaps="true"
-        android:layout_height="wrap_content"
         android:textFontWeight="@android:integer/config_longAnimTime"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/Jugar"/>
+        android:text="@string/Jugar"
+        style="@style/style_menu"
+
+        />
     <Button
         android:id="@+id/bt_preferencias"
         android:layout_width="240dp"
         android:textAllCaps="true"
-        android:textSize="25dp"
         android:backgroundTint="#FFC000"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-condensed"
-        android:layout_height="wrap_content"
         android:textFontWeight="@android:integer/config_longAnimTime"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/Preferencias"/>
+        android:text="@string/Preferencias"
+        style="@style/style_menu"
+
+
+        />
 
     <Button
         android:id="@+id/bt_salir"
         android:layout_width="240dp"
-        android:textSize="25dp"
         android:backgroundTint="#FFC000"
-        android:textColor="@color/black"
         android:textFontWeight="@android:integer/config_longAnimTime"
-        android:fontFamily="sans-serif-condensed"
         android:textAllCaps="true"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/Salir"/>
+        android:text="@string/Salir"
+        style="@style/style_menu"
+
+        />
 
 
 
