@@ -32,12 +32,6 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*
-    Typeface spaceFont = Typeface.createFromAsset(getAssets(),
-            "spaceage.ttf");
-    TextView tituloApp = (TextView) findViewById(R.id.titulo);
-		tituloApp.setTypeface(spaceFont);
-*/
     bJuego= (Button) findViewById(R.id.bt_jugar);
 
     bPreferencias= (Button) findViewById(R.id.bt_preferencias);
@@ -77,23 +71,6 @@ public class MainActivity extends AppCompatActivity  {
         // Inflate the menu; this adds items to the action bar if it is present.
        // getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }
-
-
-
-
-    public void lanzarPreferencias(View view) {
-       // Intent i = new Intent(this, Preferencias.class);
-       // startActivity(i);
-    }
-
-    public void lanzarPuntuaciones(View view) {
-      //  Intent i = new Intent(this, Puntuaciones.class);
-       // startActivity(i);
-    }
-    public void lanzarJuego(View view) {
-        Intent i = new	Intent(this, Juego.class);
-        startActivity(i);
     }
 
     public void salir() {

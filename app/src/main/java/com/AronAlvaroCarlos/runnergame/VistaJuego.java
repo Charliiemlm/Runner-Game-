@@ -204,7 +204,7 @@ public class VistaJuego extends View  {
     public void activaDisparo(){
 
         //filtro para evitar que se pueda spamear el disparo
-        if(disparo.getPosX()>=personaje.getPosX()-500 && disparosRestantes>0){
+        if(disparo.getPosX()<=personaje.getPosX() && disparosRestantes>0){
             disparo.setPosX(personaje.getPosX());
             disparo.setPosY(personaje.getPosY());
             disparoActivo=true;
@@ -412,7 +412,6 @@ public class VistaJuego extends View  {
         int action = event.getActionMasked();
 float  lastTouchX =0;
         float  lastTouchY=0;
-
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 // Se ha tocado la pantalla
