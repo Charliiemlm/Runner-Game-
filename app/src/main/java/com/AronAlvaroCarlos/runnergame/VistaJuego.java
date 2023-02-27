@@ -199,7 +199,7 @@ public class VistaJuego extends View  {
     }
 
     public void activaDisparo(){
-
+        //hola
         //filtro para evitar que se pueda spamear el disparo
         if(disparo.getPosX()<=personaje.getPosX() && disparosRestantes>0){
             disparo.setPosX(personaje.getPosX());
