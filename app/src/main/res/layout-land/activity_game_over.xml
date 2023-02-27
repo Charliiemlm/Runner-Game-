@@ -30,11 +30,13 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/imageRestart"
+
             android:layout_width="133dp"
             android:layout_height="108dp"
             android:background="@drawable/yes"
             android:contentDescription="@string/restart"
-            android:onClick="restart" />
+             />
 
         <View
             android:layout_width="0dp"
@@ -42,11 +44,13 @@
             android:layout_weight="1" />
 
         <ImageView
+            android:id="@+id/imageApagar"
+
             android:layout_width="124dp"
             android:layout_height="116dp"
             android:background="@drawable/no"
-            android:contentDescription="exit2"
-            android:onClick="exit" />
+            android:contentDescription="@string/apagar"
+             />
 
     </LinearLayout>
 
