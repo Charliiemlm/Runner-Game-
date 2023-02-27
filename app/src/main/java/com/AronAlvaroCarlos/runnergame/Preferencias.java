@@ -76,8 +76,6 @@ public class Preferencias extends AppCompatActivity {
                         break;
 
                 }
-                VistaJuego vistaJuego=new VistaJuego(Preferencias.this);
-                vistaJuego.setDisparosRestantes(disparos_max);
             finish();
             }
         });

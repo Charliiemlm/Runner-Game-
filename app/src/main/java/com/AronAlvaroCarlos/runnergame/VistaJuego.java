@@ -260,17 +260,17 @@ public class VistaJuego extends View  {
         // Rectangulo con border rojo
         paint.setColor(Color.	rgb(40, 59, 142));
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)12,
+        canvas.drawRect(canvas.getWidth()/(float)12, canvas.getHeight() / (float)12,
                 canvas.getWidth() /(float)3, canvas.getHeight() / (float)4, paint);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
-        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)13,
+        canvas.drawRect(canvas.getWidth()/(float)12, canvas.getHeight() / (float)13,
                 canvas.getWidth() /(float)3, canvas.getHeight() / (float)6 + 60, paint);
         //Orange but it's not likely to stay this way, better dark??
         paint.setColor(Color.rgb(	255, 69, 0));
         paint.setStyle(Paint.Style.STROKE);
         paint.setShadowLayer(5, 10, 10, 0xff000000);
-        canvas.drawRect(canvas.getWidth()/12, canvas.getHeight() / (float)12,
+        canvas.drawRect(canvas.getWidth()/(float)12, canvas.getHeight() / (float)12,
                 canvas.getWidth() /(float)3, canvas.getHeight() / (float)6 + 60, paint);
 
         paint.setStyle(Paint.Style.FILL);
@@ -279,7 +279,7 @@ public class VistaJuego extends View  {
         // Player 1 score
         float x1 = canvas.getWidth()/(float)3.5;
         float y1 = canvas.getHeight()/ (float)5.5;
-        float x2 = canvas.getWidth()/5;
+        float x2 = canvas.getWidth()/(float)5;
         float y2 = canvas.getHeight()/(float)5.5;
         if(disparosRestantes>0){
             canvas.drawText("Ammo: ", x2, y2, paint);
@@ -374,8 +374,7 @@ public class VistaJuego extends View  {
         }
         return super.onKeyDown(keyCode, event);
     }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
+   /* public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
         float  lastTouchX =0;
         float  lastTouchY=0;
@@ -440,5 +439,5 @@ public class VistaJuego extends View  {
 
     public void setDisparosRestantes(int disparosRestantes) {
         this.disparosRestantes = disparosRestantes;
-    }
+    }*/
 }

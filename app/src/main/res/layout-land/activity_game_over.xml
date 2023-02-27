@@ -31,7 +31,7 @@
 
         <ImageView
             android:id="@+id/imageRestart"
-
+            android:layout_marginTop="20dp"
             android:layout_width="133dp"
             android:layout_height="108dp"
             android:background="@drawable/yes"
@@ -45,7 +45,7 @@
 
         <ImageView
             android:id="@+id/imageApagar"
-
+            android:layout_marginTop="20dp"
             android:layout_width="124dp"
             android:layout_height="116dp"
             android:background="@drawable/no"
